@@ -11,11 +11,11 @@ import UIKit
 /// A flow is a feature in the app. It's responsible for building the MVP objects for a feature
 protocol Flow {
     /// Root view controller in the flow
-    var viewController: ViewController { get }
+    var viewController: UIViewController { get }
 }
 
 final class EmptyFlow: Flow {
-    var viewController: ViewController {
+    var viewController: UIViewController {
         return ViewController()
     }
 }

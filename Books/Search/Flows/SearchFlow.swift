@@ -6,13 +6,14 @@
 //  Copyright © 2019 Spencer Prescott. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class SearchFlow: Flow {
     private let presenter: SearchPresentable
     
-    var viewController: ViewController {
-        return SearchViewController(presenter: presenter)
+    var viewController: UIViewController {
+        let viewController = SearchViewController(presenter: presenter)
+        return UINavigationController(rootViewController: viewController)
     }
     
     init(presenter: SearchPresentable) {

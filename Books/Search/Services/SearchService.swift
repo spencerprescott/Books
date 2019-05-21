@@ -57,7 +57,8 @@ final class SearchService: SearchServicing {
     }
     
     func search(query: String?, page: Int, resultHandler: @escaping (Result<SearchResult, Error>) -> Void) {
-        guard let query = query
+        guard let query = query,
+            !query.isEmpty
             else { return resultHandler(.success(result: SearchResult(page: page, container: .empty))) }
         
         let url = URLBuilder()
@@ -84,7 +85,7 @@ final class SearchService: SearchServicing {
         }
     }
     
-    private func parseSearchResult(from data: Data, page: Int?) throws -> SearchResult {
+    private func parseSearchResult(from data: Data, page: Int) throws -> SearchResult {
         let container = try JSONDecoder().decode(BookSearchContainer.self, from: data)
         return SearchResult(page: page, container: container)
     }

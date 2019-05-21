@@ -17,6 +17,14 @@ protocol SearchViewable: class {
 final class SearchViewController: ViewController, SearchViewable {
     private let presenter: SearchPresentable
     private var displayItems: [BookSearchDisplayItem] = []
+  
+    private lazy var searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.obscuresBackgroundDuringPresentation = false
+        controller.searchBar.placeholder = "Search Books"
+        controller.searchResultsUpdater = self
+        return controller
+    }()
 
     private lazy var tableView: UITableView = {
         let v = UITableView(frame: .zero, style: .plain)
@@ -25,6 +33,7 @@ final class SearchViewController: ViewController, SearchViewable {
         v.delegate = self
         // TODO: Move to separate class
         v.dataSource = self
+        v.translatesAutoresizingMaskIntoConstraints = false
         v.register([BookSearchResultTableViewCell.self])
         return v
     }()
@@ -37,6 +46,22 @@ final class SearchViewController: ViewController, SearchViewable {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Books"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
 
     // MARK:- SearchViewable
@@ -71,5 +96,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectBook(at: indexPath.row)
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        presenter.search(query: searchController.searchBar.text)
     }
 }
