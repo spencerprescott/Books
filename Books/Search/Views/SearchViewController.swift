@@ -16,7 +16,11 @@ protocol SearchViewable: class {
 
 final class SearchViewController: ViewController, SearchViewable {
     private let presenter: SearchPresentable
-    private var displayItems: [BookSearchDisplayItem] = []
+    private var displayItems: [BookSearchDisplayItem] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
   
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
@@ -101,6 +105,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(search), object: nil)
+        perform(#selector(search), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc private func search() {
+        displayItems = []
         presenter.search(query: searchController.searchBar.text)
     }
 }

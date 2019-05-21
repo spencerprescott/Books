@@ -38,29 +38,12 @@ final class SearchPresenter: SearchPresentable {
         page = 1
         self.query = query
         
-        // Execute new search request
-        searchService.search(query: query, page: page) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let searchResult):
-                self.handleSearchResult(searchResult)
-            case .failure(let error):
-                self.view?.showError(message: error.localizedDescription)
-            }
-        }
+        executeSearchRequest()
     }
     
     func loadNextPage() {
         page += 1
-        searchService.search(query: query, page: page) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let searchResult):
-                self.handleSearchResult(searchResult)
-            case .failure(let error):
-                self.view?.showError(message: error.localizedDescription)
-            }
-        }
+        executeSearchRequest()
     }
     
     func didSelectBook(at index: Int) {
@@ -69,13 +52,33 @@ final class SearchPresenter: SearchPresentable {
     
     // MARK:- Helpers
     
+    private func executeSearchRequest() {
+        searchService.search(query: query, page: page) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                switch result {
+                case .success(let searchResult):
+                    self.handleSearchResult(searchResult)
+                case .failure(let error):
+                    self.view?.showError(message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     private func handleSearchResult(_ result: SearchResult) {
         self.books.append(contentsOf: result.container.books)
         let displayItems: [BookSearchDisplayItem] = result.container.books
             .map { book in
-                let imageUrl = URL(string: "http://covers.openlibrary.org/b/ID/\(book.coverId)-S.jpg")
+                let imageUrl: URL? = {
+                    if let id = book.coverId {
+                        return URL(string: "http://covers.openlibrary.org/b/ID/\(id)-S.jpg")
+                    }
+                    return nil
+                }()
                 return BookSearchDisplayItem(imageUrl: imageUrl,
-                                             title: book.title)
+                                             title: book.title ?? "Unknown")
             }
         view?.showSearchResults(displayItems)
     }
