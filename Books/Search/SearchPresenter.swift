@@ -13,5 +13,10 @@ protocol SearchPresentable: class {
 }
 
 final class SearchPresenter: SearchPresentable {
+    private let searchService: SearchServicing
     weak var view: SearchViewable?
+    
+    init(searchService: SearchServicing) {
+        self.searchService = searchService
+    }
 }

@@ -24,6 +24,10 @@
 		AB1AD1732293DB2600409228 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1722293DB2600409228 /* NetworkService.swift */; };
 		AB1AD1772293DE1700409228 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1762293DE1700409228 /* SearchService.swift */; };
 		AB1AD17C2293E0DB00409228 /* SearchServiceURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */; };
+		AB1AD17F2293E64900409228 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD17E2293E64900409228 /* Book.swift */; };
+		AB1AD1812293E85F00409228 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1802293E85F00409228 /* SearchResult.swift */; };
+		AB1AD1832293EA8100409228 /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1822293EA8100409228 /* SearchServiceTests.swift */; };
+		AB1AD1862293EAFC00409228 /* MockBookSearchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,10 @@
 		AB1AD1722293DB2600409228 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		AB1AD1762293DE1700409228 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceURLBuilderTests.swift; sourceTree = "<group>"; };
+		AB1AD17E2293E64900409228 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		AB1AD1802293E85F00409228 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		AB1AD1822293EA8100409228 /* SearchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceTests.swift; sourceTree = "<group>"; };
+		AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBookSearchContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 		AB1AD1362293D40500409228 /* Books */ = {
 			isa = PBXGroup;
 			children = (
+				AB1AD17D2293E63E00409228 /* Models */,
 				AB1AD16F2293DB1000409228 /* Networking */,
 				AB1AD16A2293D7BC00409228 /* Database */,
 				AB1AD15C2293D44700409228 /* Core */,
@@ -117,6 +126,7 @@
 		AB1AD14E2293D40600409228 /* BooksTests */ = {
 			isa = PBXGroup;
 			children = (
+				AB1AD1842293EAF300409228 /* Mocks */,
 				AB1AD17A2293E0CB00409228 /* Search */,
 				AB1AD14F2293D40600409228 /* BooksTests.swift */,
 				AB1AD1512293D40600409228 /* Info.plist */,
@@ -131,6 +141,7 @@
 				AB1AD1642293D61200409228 /* SearchPresenter.swift */,
 				AB1AD1662293D64B00409228 /* SearchViewController.swift */,
 				AB1AD1762293DE1700409228 /* SearchService.swift */,
+				AB1AD1802293E85F00409228 /* SearchResult.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -181,8 +192,25 @@
 			isa = PBXGroup;
 			children = (
 				AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */,
+				AB1AD1822293EA8100409228 /* SearchServiceTests.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		AB1AD17D2293E63E00409228 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD17E2293E64900409228 /* Book.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AB1AD1842293EAF300409228 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +315,7 @@
 			files = (
 				AB1AD1772293DE1700409228 /* SearchService.swift in Sources */,
 				AB1AD15E2293D46100409228 /* TabBarViewController.swift in Sources */,
+				AB1AD17F2293E64900409228 /* Book.swift in Sources */,
 				AB1AD1602293D55A00409228 /* Flow.swift in Sources */,
 				AB1AD1692293D73900409228 /* FlowFactory.swift in Sources */,
 				AB1AD16C2293D7C600409228 /* DataStore.swift in Sources */,
@@ -295,6 +324,7 @@
 				AB1AD1632293D58400409228 /* SearchFlow.swift in Sources */,
 				AB1AD1402293D40500409228 /* Books.xcdatamodeld in Sources */,
 				AB1AD1382293D40500409228 /* AppDelegate.swift in Sources */,
+				AB1AD1812293E85F00409228 /* SearchResult.swift in Sources */,
 				AB1AD1652293D61200409228 /* SearchPresenter.swift in Sources */,
 				AB1AD1732293DB2600409228 /* NetworkService.swift in Sources */,
 				AB1AD16E2293D9CA00409228 /* Result.swift in Sources */,
@@ -305,7 +335,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB1AD1832293EA8100409228 /* SearchServiceTests.swift in Sources */,
 				AB1AD17C2293E0DB00409228 /* SearchServiceURLBuilderTests.swift in Sources */,
+				AB1AD1862293EAFC00409228 /* MockBookSearchContainer.swift in Sources */,
 				AB1AD1502293D40600409228 /* BooksTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

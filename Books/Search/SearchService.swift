@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SearchServicing: class {
-    func search(query: String?, page: Int?, resultHandler: @escaping (Result<[Any], Error>) -> Void)
+    func search(query: String?, page: Int?, resultHandler: @escaping (Result<SearchResult, Error>) -> Void)
 }
 
 struct SearchError: LocalizedError {
@@ -57,9 +57,9 @@ final class SearchService: SearchServicing {
         self.networkService = networkService
     }
     
-    func search(query: String?, page: Int?, resultHandler: @escaping (Result<[Any], Error>) -> Void) {
+    func search(query: String?, page: Int?, resultHandler: @escaping (Result<SearchResult, Error>) -> Void) {
         guard let query = query
-            else { return resultHandler(.success(result: [])) }
+            else { return resultHandler(.success(result: SearchResult(page: page ?? 1, container: .empty))) }
         
         let url = URLBuilder()
             .page(page)
@@ -73,14 +73,20 @@ final class SearchService: SearchServicing {
             guard let self = self else { return }
             switch result {
             case .success(let data):
-                resultHandler(.success(result: self.parseBooks(from: data)))
+                do {
+                    let searchResult = try self.parseSearchResult(from: data, page: page)
+                    resultHandler(.success(result: searchResult))
+                } catch {
+                    resultHandler(.failure(error: error))
+                }
             case .failure(let error):
                 resultHandler(.failure(error: error))
             }
         }
     }
     
-    private func parseBooks(from data: Data) -> [Any] {
-        return []
+    private func parseSearchResult(from data: Data, page: Int?) throws -> SearchResult {
+        let container = try JSONDecoder().decode(BookSearchContainer.self, from: data)
+        return SearchResult(page: page ?? 1, container: container)
     }
 }

@@ -16,19 +16,29 @@ final class FlowFactory {
     }
     
     private let dataStore: DataStoring
+    private let networkService: NetworkServicing
     
-    init(dataStore: DataStoring) {
+    init(dataStore: DataStoring = DataStore.shared,
+         networkService: NetworkServicing = NetworkService.shared) {
         self.dataStore = dataStore
+        self.networkService = networkService
     }
     
     func flow(flowType: FlowType) -> Flow {
         switch flowType {
         case .search:
-            return SearchFlow(presenter: SearchPresenter())
+            return buildSearchFlow()
         case .wishList:
-            return SearchFlow(presenter: SearchPresenter())
+            return EmptyFlow()
         case .detail:
-            return SearchFlow(presenter: SearchPresenter())
+            return EmptyFlow()
         }
+    }
+    
+    // MARK:- Builders
+    
+    private func buildSearchFlow() -> SearchFlow {
+        let searchService = SearchService(networkService: networkService)
+        return SearchFlow(presenter: SearchPresenter(searchService: searchService))
     }
 }

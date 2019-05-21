@@ -17,6 +17,7 @@ protocol NetworkServicing: class {
 }
 
 final class NetworkService: NetworkServicing {
+    static let shared = NetworkService()
     private let session: URLSession
     
     init() {

@@ -18,10 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-        let factory = FlowFactory(dataStore: DataStore.shared)
-        window?.rootViewController = TabBarController(flows: [
-            factory.flow(flowType: .search)
+        
+        // Build tab bar controller with flows
+        let factory = FlowFactory()
+        let tabBarController = TabBarController(flows: [
+            factory.flow(flowType: .search),
+            factory.flow(flowType: .wishList)
         ])
+        
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         return true
     }

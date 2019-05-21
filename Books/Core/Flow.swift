@@ -13,3 +13,9 @@ protocol Flow {
     /// Root view controller in the flow
     var viewController: ViewController { get }
 }
+
+final class EmptyFlow: Flow {
+    var viewController: ViewController {
+        return ViewController()
+    }
+}
