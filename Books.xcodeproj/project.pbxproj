@@ -28,6 +28,9 @@
 		AB1AD1812293E85F00409228 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1802293E85F00409228 /* SearchResult.swift */; };
 		AB1AD1832293EA8100409228 /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1822293EA8100409228 /* SearchServiceTests.swift */; };
 		AB1AD1862293EAFC00409228 /* MockBookSearchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */; };
+		AB1AD1882293F21500409228 /* BookSearchDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1872293F21500409228 /* BookSearchDisplayItem.swift */; };
+		AB1AD1902293F6D700409228 /* BookSearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD18F2293F6D700409228 /* BookSearchResultTableViewCell.swift */; };
+		AB1AD1932293F70200409228 /* UITableView+CellReuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		AB1AD1802293E85F00409228 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		AB1AD1822293EA8100409228 /* SearchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceTests.swift; sourceTree = "<group>"; };
 		AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBookSearchContainer.swift; sourceTree = "<group>"; };
+		AB1AD1872293F21500409228 /* BookSearchDisplayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchDisplayItem.swift; sourceTree = "<group>"; };
+		AB1AD18F2293F6D700409228 /* BookSearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CellReuse.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,7 @@
 		AB1AD1362293D40500409228 /* Books */ = {
 			isa = PBXGroup;
 			children = (
+				AB1AD1912293F6F600409228 /* Extensions */,
 				AB1AD17D2293E63E00409228 /* Models */,
 				AB1AD16F2293DB1000409228 /* Networking */,
 				AB1AD16A2293D7BC00409228 /* Database */,
@@ -114,7 +121,6 @@
 				AB1AD15B2293D43000409228 /* Wish List */,
 				AB1AD15A2293D42A00409228 /* Search */,
 				AB1AD1372293D40500409228 /* AppDelegate.swift */,
-				AB1AD1392293D40500409228 /* ViewController.swift */,
 				AB1AD1412293D40600409228 /* Assets.xcassets */,
 				AB1AD1432293D40600409228 /* LaunchScreen.storyboard */,
 				AB1AD1462293D40600409228 /* Info.plist */,
@@ -137,11 +143,11 @@
 		AB1AD15A2293D42A00409228 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				AB1AD1622293D58400409228 /* SearchFlow.swift */,
-				AB1AD1642293D61200409228 /* SearchPresenter.swift */,
-				AB1AD1662293D64B00409228 /* SearchViewController.swift */,
-				AB1AD1762293DE1700409228 /* SearchService.swift */,
-				AB1AD1802293E85F00409228 /* SearchResult.swift */,
+				AB1AD18D2293F69E00409228 /* Presenters */,
+				AB1AD18C2293F69600409228 /* Services */,
+				AB1AD18B2293F68D00409228 /* Views */,
+				AB1AD18A2293F68400409228 /* Flows */,
+				AB1AD1892293F67900409228 /* Models */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -156,9 +162,8 @@
 		AB1AD15C2293D44700409228 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				AB1AD15F2293D55A00409228 /* Flow.swift */,
+				AB1AD18E2293F6B700409228 /* Flows */,
 				AB1AD1612293D57400409228 /* Views */,
-				AB1AD1682293D73900409228 /* FlowFactory.swift */,
 				AB1AD16D2293D9CA00409228 /* Result.swift */,
 			);
 			path = Core;
@@ -167,6 +172,7 @@
 		AB1AD1612293D57400409228 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB1AD1392293D40500409228 /* ViewController.swift */,
 				AB1AD15D2293D46100409228 /* TabBarViewController.swift */,
 			);
 			path = Views;
@@ -211,6 +217,65 @@
 				AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		AB1AD1892293F67900409228 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1802293E85F00409228 /* SearchResult.swift */,
+				AB1AD1872293F21500409228 /* BookSearchDisplayItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AB1AD18A2293F68400409228 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1622293D58400409228 /* SearchFlow.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		AB1AD18B2293F68D00409228 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1662293D64B00409228 /* SearchViewController.swift */,
+				AB1AD18F2293F6D700409228 /* BookSearchResultTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AB1AD18C2293F69600409228 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1762293DE1700409228 /* SearchService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AB1AD18D2293F69E00409228 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1642293D61200409228 /* SearchPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		AB1AD18E2293F6B700409228 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD15F2293D55A00409228 /* Flow.swift */,
+				AB1AD1682293D73900409228 /* FlowFactory.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		AB1AD1912293F6F600409228 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,11 +387,14 @@
 				AB1AD1672293D64C00409228 /* SearchViewController.swift in Sources */,
 				AB1AD13A2293D40500409228 /* ViewController.swift in Sources */,
 				AB1AD1632293D58400409228 /* SearchFlow.swift in Sources */,
+				AB1AD1882293F21500409228 /* BookSearchDisplayItem.swift in Sources */,
 				AB1AD1402293D40500409228 /* Books.xcdatamodeld in Sources */,
 				AB1AD1382293D40500409228 /* AppDelegate.swift in Sources */,
 				AB1AD1812293E85F00409228 /* SearchResult.swift in Sources */,
+				AB1AD1902293F6D700409228 /* BookSearchResultTableViewCell.swift in Sources */,
 				AB1AD1652293D61200409228 /* SearchPresenter.swift in Sources */,
 				AB1AD1732293DB2600409228 /* NetworkService.swift in Sources */,
+				AB1AD1932293F70200409228 /* UITableView+CellReuse.swift in Sources */,
 				AB1AD16E2293D9CA00409228 /* Result.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

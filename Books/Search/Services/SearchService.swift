@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SearchServicing: class {
-    func search(query: String?, page: Int?, resultHandler: @escaping (Result<SearchResult, Error>) -> Void)
+    func search(query: String?, page: Int, resultHandler: @escaping (Result<SearchResult, Error>) -> Void)
 }
 
 struct SearchError: LocalizedError {
@@ -20,7 +20,7 @@ final class SearchService: SearchServicing {
     final class URLBuilder {
         private let baseUrl = "http://openlibrary.org/search.json"
         private var query: String?
-        private var page: Int?
+        private var page: Int = 1
         
         func query(_ query: String) -> URLBuilder {
             // Replace all whitespace with plus signs
@@ -31,7 +31,7 @@ final class SearchService: SearchServicing {
             return self
         }
         
-        func page(_ page: Int?) -> URLBuilder {
+        func page(_ page: Int) -> URLBuilder {
             self.page = page
             return self
         }
@@ -39,9 +39,8 @@ final class SearchService: SearchServicing {
         func build() -> URL? {
             var components = URLComponents(string: baseUrl)
             var queryItems: [URLQueryItem] = []
-            if let page = page {
-                queryItems.append(.init(name: "page", value: "\(page)"))
-            }
+            queryItems.append(.init(name: "page", value: "\(page)"))
+       
             if let query = query {
                 queryItems.append(.init(name: "q", value: query))
             }
@@ -57,9 +56,9 @@ final class SearchService: SearchServicing {
         self.networkService = networkService
     }
     
-    func search(query: String?, page: Int?, resultHandler: @escaping (Result<SearchResult, Error>) -> Void) {
+    func search(query: String?, page: Int, resultHandler: @escaping (Result<SearchResult, Error>) -> Void) {
         guard let query = query
-            else { return resultHandler(.success(result: SearchResult(page: page ?? 1, container: .empty))) }
+            else { return resultHandler(.success(result: SearchResult(page: page, container: .empty))) }
         
         let url = URLBuilder()
             .page(page)
@@ -87,6 +86,6 @@ final class SearchService: SearchServicing {
     
     private func parseSearchResult(from data: Data, page: Int?) throws -> SearchResult {
         let container = try JSONDecoder().decode(BookSearchContainer.self, from: data)
-        return SearchResult(page: page ?? 1, container: container)
+        return SearchResult(page: page, container: container)
     }
 }
