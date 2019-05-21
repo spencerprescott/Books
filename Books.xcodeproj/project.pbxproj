@@ -9,11 +9,21 @@
 /* Begin PBXBuildFile section */
 		AB1AD1382293D40500409228 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1372293D40500409228 /* AppDelegate.swift */; };
 		AB1AD13A2293D40500409228 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1392293D40500409228 /* ViewController.swift */; };
-		AB1AD13D2293D40500409228 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1AD13B2293D40500409228 /* Main.storyboard */; };
 		AB1AD1402293D40500409228 /* Books.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD13E2293D40500409228 /* Books.xcdatamodeld */; };
 		AB1AD1422293D40600409228 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB1AD1412293D40600409228 /* Assets.xcassets */; };
 		AB1AD1452293D40600409228 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1AD1432293D40600409228 /* LaunchScreen.storyboard */; };
 		AB1AD1502293D40600409228 /* BooksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD14F2293D40600409228 /* BooksTests.swift */; };
+		AB1AD15E2293D46100409228 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD15D2293D46100409228 /* TabBarViewController.swift */; };
+		AB1AD1602293D55A00409228 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD15F2293D55A00409228 /* Flow.swift */; };
+		AB1AD1632293D58400409228 /* SearchFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1622293D58400409228 /* SearchFlow.swift */; };
+		AB1AD1652293D61200409228 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1642293D61200409228 /* SearchPresenter.swift */; };
+		AB1AD1672293D64C00409228 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1662293D64B00409228 /* SearchViewController.swift */; };
+		AB1AD1692293D73900409228 /* FlowFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1682293D73900409228 /* FlowFactory.swift */; };
+		AB1AD16C2293D7C600409228 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD16B2293D7C600409228 /* DataStore.swift */; };
+		AB1AD16E2293D9CA00409228 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD16D2293D9CA00409228 /* Result.swift */; };
+		AB1AD1732293DB2600409228 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1722293DB2600409228 /* NetworkService.swift */; };
+		AB1AD1772293DE1700409228 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1762293DE1700409228 /* SearchService.swift */; };
+		AB1AD17C2293E0DB00409228 /* SearchServiceURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +40,6 @@
 		AB1AD1342293D40500409228 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB1AD1372293D40500409228 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB1AD1392293D40500409228 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		AB1AD13C2293D40500409228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB1AD13F2293D40500409228 /* Books.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Books.xcdatamodel; sourceTree = "<group>"; };
 		AB1AD1412293D40600409228 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB1AD1442293D40600409228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +47,17 @@
 		AB1AD14B2293D40600409228 /* BooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB1AD14F2293D40600409228 /* BooksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTests.swift; sourceTree = "<group>"; };
 		AB1AD1512293D40600409228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB1AD15D2293D46100409228 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		AB1AD15F2293D55A00409228 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
+		AB1AD1622293D58400409228 /* SearchFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlow.swift; sourceTree = "<group>"; };
+		AB1AD1642293D61200409228 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		AB1AD1662293D64B00409228 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		AB1AD1682293D73900409228 /* FlowFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowFactory.swift; sourceTree = "<group>"; };
+		AB1AD16B2293D7C600409228 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		AB1AD16D2293D9CA00409228 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		AB1AD1722293DB2600409228 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		AB1AD1762293DE1700409228 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceURLBuilderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +99,13 @@
 		AB1AD1362293D40500409228 /* Books */ = {
 			isa = PBXGroup;
 			children = (
+				AB1AD16F2293DB1000409228 /* Networking */,
+				AB1AD16A2293D7BC00409228 /* Database */,
+				AB1AD15C2293D44700409228 /* Core */,
+				AB1AD15B2293D43000409228 /* Wish List */,
+				AB1AD15A2293D42A00409228 /* Search */,
 				AB1AD1372293D40500409228 /* AppDelegate.swift */,
 				AB1AD1392293D40500409228 /* ViewController.swift */,
-				AB1AD13B2293D40500409228 /* Main.storyboard */,
 				AB1AD1412293D40600409228 /* Assets.xcassets */,
 				AB1AD1432293D40600409228 /* LaunchScreen.storyboard */,
 				AB1AD1462293D40600409228 /* Info.plist */,
@@ -93,10 +117,72 @@
 		AB1AD14E2293D40600409228 /* BooksTests */ = {
 			isa = PBXGroup;
 			children = (
+				AB1AD17A2293E0CB00409228 /* Search */,
 				AB1AD14F2293D40600409228 /* BooksTests.swift */,
 				AB1AD1512293D40600409228 /* Info.plist */,
 			);
 			path = BooksTests;
+			sourceTree = "<group>";
+		};
+		AB1AD15A2293D42A00409228 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1622293D58400409228 /* SearchFlow.swift */,
+				AB1AD1642293D61200409228 /* SearchPresenter.swift */,
+				AB1AD1662293D64B00409228 /* SearchViewController.swift */,
+				AB1AD1762293DE1700409228 /* SearchService.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		AB1AD15B2293D43000409228 /* Wish List */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Wish List";
+			sourceTree = "<group>";
+		};
+		AB1AD15C2293D44700409228 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD15F2293D55A00409228 /* Flow.swift */,
+				AB1AD1612293D57400409228 /* Views */,
+				AB1AD1682293D73900409228 /* FlowFactory.swift */,
+				AB1AD16D2293D9CA00409228 /* Result.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AB1AD1612293D57400409228 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD15D2293D46100409228 /* TabBarViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AB1AD16A2293D7BC00409228 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD16B2293D7C600409228 /* DataStore.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		AB1AD16F2293DB1000409228 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD1722293DB2600409228 /* NetworkService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		AB1AD17A2293E0CB00409228 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,7 +268,6 @@
 			files = (
 				AB1AD1452293D40600409228 /* LaunchScreen.storyboard in Resources */,
 				AB1AD1422293D40600409228 /* Assets.xcassets in Resources */,
-				AB1AD13D2293D40500409228 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,9 +285,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB1AD1772293DE1700409228 /* SearchService.swift in Sources */,
+				AB1AD15E2293D46100409228 /* TabBarViewController.swift in Sources */,
+				AB1AD1602293D55A00409228 /* Flow.swift in Sources */,
+				AB1AD1692293D73900409228 /* FlowFactory.swift in Sources */,
+				AB1AD16C2293D7C600409228 /* DataStore.swift in Sources */,
+				AB1AD1672293D64C00409228 /* SearchViewController.swift in Sources */,
 				AB1AD13A2293D40500409228 /* ViewController.swift in Sources */,
+				AB1AD1632293D58400409228 /* SearchFlow.swift in Sources */,
 				AB1AD1402293D40500409228 /* Books.xcdatamodeld in Sources */,
 				AB1AD1382293D40500409228 /* AppDelegate.swift in Sources */,
+				AB1AD1652293D61200409228 /* SearchPresenter.swift in Sources */,
+				AB1AD1732293DB2600409228 /* NetworkService.swift in Sources */,
+				AB1AD16E2293D9CA00409228 /* Result.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB1AD17C2293E0DB00409228 /* SearchServiceURLBuilderTests.swift in Sources */,
 				AB1AD1502293D40600409228 /* BooksTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,14 +321,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AB1AD13B2293D40500409228 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AB1AD13C2293D40500409228 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		AB1AD1432293D40600409228 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -373,7 +461,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.spencerprescott.Books;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -391,7 +479,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.spencerprescott.Books;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

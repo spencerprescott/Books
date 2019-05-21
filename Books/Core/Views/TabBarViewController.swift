@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TabBarViewController.swift
 //  Books
 //
 //  Created by Spencer Prescott on 5/20/19.
@@ -8,21 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    init() {
+final class TabBarController: UITabBarController {
+    private let flows: [Flow]
+    
+    init(flows: [Flow]) {
+        self.flows = flows
         super.init(nibName: nil, bundle: nil)
+        setViewControllers(flows.map { $0.viewController }, animated: true)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
-
 }
-
