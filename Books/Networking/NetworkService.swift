@@ -8,12 +8,25 @@
 
 import Foundation
 
-struct NetworkError: LocalizedError {
-    let errorDescription: String?
+enum NetworkError: LocalizedError {
+    case cancelled
+    case unknown
+    case generic(message: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .generic(let message):
+            return message
+        case .unknown:
+            return "Unknown Error"
+        case .cancelled:
+            return nil
+        }
+    }
 }
 
 protocol NetworkServicing: class {
-    func executeRequest(url: URL, resultHandler: @escaping (Result<Data, Error>) -> Void)
+    func buildRequest(url: URL, resultHandler: @escaping (Result<Data, NetworkError>) -> Void) -> NetworkRequest
 }
 
 final class NetworkService: NetworkServicing {
@@ -24,17 +37,21 @@ final class NetworkService: NetworkServicing {
         self.session = URLSession(configuration: .default)
     }
     
-    func executeRequest(url: URL, resultHandler: @escaping (Result<Data, Error>) -> Void) {
+    func buildRequest(url: URL, resultHandler: @escaping (Result<Data, NetworkError>) -> Void) -> NetworkRequest {
         let task = session.dataTask(with: url) { data, _, error in
             if let error = error {
-                resultHandler(.failure(error: error))
+                if (error as NSError).code == NSURLErrorCancelled {
+                    resultHandler(.failure(error: .cancelled))
+                } else {
+                    resultHandler(.failure(error: .generic(message: error.localizedDescription)))
+                }
             } else if let data = data {
                 resultHandler(.success(result: data))
             } else {
-                resultHandler(.failure(error: NetworkError(errorDescription: "Unknown Error")))
+                resultHandler(.failure(error: .unknown))
             }
         }
         
-        task.resume()
+        return task
     }
 }

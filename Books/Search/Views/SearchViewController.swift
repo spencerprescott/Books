@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol SearchViewable: class {
     func viewBook(detailFlow: Flow)
@@ -37,7 +38,6 @@ final class SearchViewController: ViewController, SearchViewable {
         v.delegate = self
         // TODO: Move to separate class
         v.dataSource = self
-        v.translatesAutoresizingMaskIntoConstraints = false
         v.register([BookSearchResultTableViewCell.self])
         return v
     }()
@@ -52,20 +52,40 @@ final class SearchViewController: ViewController, SearchViewable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
         
+        // Setup Navigation Bar
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Books"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        // Setup Loading Footer
+        tableView.tableFooterView = {
+            let footer = LoadingFooterView()
+            let fittingSize = CGSize(width: view.bounds.width, height: 0)
+            let size = footer.systemLayoutSizeFitting(fittingSize,
+                                                      withHorizontalFittingPriority: .required,
+                                                      verticalFittingPriority: .fittingSizeLevel)
+            footer.frame = CGRect(origin: .zero, size: size)
+            return footer
+        }()
     }
 
     // MARK:- SearchViewable
@@ -100,6 +120,21 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectBook(at: indexPath.row)
+    }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let bottomEdge = ceil(scrollView.contentOffset.y + scrollView.frame.size.height)
+        
+        // Check if we've reached the bottom of the content
+        if bottomEdge >= ceil(scrollView.contentSize.height) {
+            presenter.loadNextPage()
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 extension UITableView {
     func register(_ cellClasses: [AnyClass]) {
-        cellClasses.forEach { (klass) in
+        cellClasses.forEach { klass in
             let className = String(describing: klass)
             if Bundle(for: klass).path(forResource: className, ofType: "nib") != nil {
                 let nib = UINib(nibName: className, bundle: Bundle(for: klass))

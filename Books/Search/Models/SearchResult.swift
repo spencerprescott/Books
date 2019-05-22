@@ -10,6 +10,7 @@ import Foundation
 
 struct SearchResult {
     let page: Int
+    let nextPage: Int
     let container: BookSearchContainer
 }
 

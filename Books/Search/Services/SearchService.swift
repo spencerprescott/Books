@@ -51,15 +51,20 @@ final class SearchService: SearchServicing {
     }
     
     private let networkService: NetworkServicing
+    /// Current inflight requset
+    private var currentRequest: NetworkRequest?
     
     init(networkService: NetworkServicing) {
         self.networkService = networkService
     }
     
     func search(query: String?, page: Int, resultHandler: @escaping (Result<SearchResult, Error>) -> Void) {
+        // Cancel in flight request. We only allow one search request at a time
+        currentRequest?.cancelRequest()
+        
         guard let query = query,
             !query.isEmpty
-            else { return resultHandler(.success(result: SearchResult(page: page, container: .empty))) }
+            else { return resultHandler(.success(result: SearchResult(page: page, nextPage: page + 1, container: .empty))) }
         
         let url = URLBuilder()
             .page(page)
@@ -69,8 +74,10 @@ final class SearchService: SearchServicing {
         guard let searchUrl = url
             else { return resultHandler(.failure(error: SearchError(errorDescription: "Invalid Search Query"))) }
         
-        networkService.executeRequest(url: searchUrl) { [weak self] result in
+        // Build search request
+        let request = networkService.buildRequest(url: searchUrl) { [weak self] result in
             guard let self = self else { return }
+            self.currentRequest = nil
             switch result {
             case .success(let data):
                 do {
@@ -83,10 +90,14 @@ final class SearchService: SearchServicing {
                 resultHandler(.failure(error: error))
             }
         }
+        request.executeRequest()
+        
+        // Save inflight request
+        self.currentRequest = request
     }
     
     private func parseSearchResult(from data: Data, page: Int) throws -> SearchResult {
         let container = try JSONDecoder().decode(BookSearchContainer.self, from: data)
-        return SearchResult(page: page, container: container)
+        return SearchResult(page: page, nextPage: page + 1, container: container)
     }
 }

@@ -10,6 +10,10 @@ import XCTest
 @testable import Books
 
 class SearchServiceTests: XCTestCase {
+    private class MockNetworkRequest: NetworkRequest {
+        func executeRequest() {}
+        func cancelRequest() {}
+    }
     private class MockNetworkService: NetworkServicing {
         private let data: Data
         
@@ -17,15 +21,16 @@ class SearchServiceTests: XCTestCase {
             self.data = data
         }
         
-        func executeRequest(url: URL, resultHandler: @escaping (Result<Data, Error>) -> Void) {
+        func buildRequest(url: URL, resultHandler: @escaping (Result<Data, NetworkError>) -> Void) -> NetworkRequest {
             resultHandler(.success(result: data))
+            return MockNetworkRequest()
         }
     }
     
     private let service = SearchService(networkService: MockNetworkService(data: BookSearchContainer.mockData))
     
     func testResponseDataIsParsedToBookSearchContainer() {
-        service.search(query: "test", page: nil) { result in
+        service.search(query: "test", page: 1) { result in
             switch result {
             case .success(let searchResult):
                 // Using data from BookSearchContainer.mockData
@@ -39,7 +44,7 @@ class SearchServiceTests: XCTestCase {
     }
     
     func testEmptyResultIsReturnedWithNilQuery() {
-        service.search(query: nil, page: nil) { result in
+        service.search(query: nil, page: 1) { result in
             switch result {
             case .success(let searchResult):
                 XCTAssertEqual(searchResult.container.numFound, BookSearchContainer.empty.numFound)
@@ -51,22 +56,13 @@ class SearchServiceTests: XCTestCase {
         }
     }
     
-    func testPageNumberIsSetWhenNil() {
-        service.search(query: nil, page: nil) { result in
-            switch result {
-            case .success(let searchResult):
-                XCTAssertEqual(searchResult.page, 1)
-            case .failure(let error):
-                XCTFail("Did not parse did succesfully: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func testPageNumberIsSetWhenNonNil() {
+ 
+    func testPageNumberIsSet() {
         service.search(query: nil, page: 3) { result in
             switch result {
             case .success(let searchResult):
                 XCTAssertEqual(searchResult.page, 3)
+                XCTAssertEqual(searchResult.nextPage, 4)
             case .failure(let error):
                 XCTFail("Did not parse did succesfully: \(error.localizedDescription)")
             }

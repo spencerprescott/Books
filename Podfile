@@ -8,6 +8,7 @@ target 'Books' do
   # Pods for Books
 
   pod 'Kingfisher'
+  pod 'SnapKit'
 
   target 'BooksTests' do
     inherit! :search_paths

@@ -17,6 +17,8 @@ protocol SearchPresentable: class {
 }
 
 final class SearchPresenter: SearchPresentable {
+    weak var view: SearchViewable?
+    
     private let searchService: SearchServicing
     /// Page user is currently viewing
     private var page: Int = 1
@@ -24,7 +26,6 @@ final class SearchPresenter: SearchPresentable {
     private var query: String?
     /// Books loaded from search request
     private var books: [Book] = []
-    weak var view: SearchViewable?
     
     init(searchService: SearchServicing) {
         self.searchService = searchService
@@ -38,12 +39,11 @@ final class SearchPresenter: SearchPresentable {
         page = 1
         self.query = query
         
-        executeSearchRequest()
+        executeSearchRequest(on: page)
     }
     
     func loadNextPage() {
-        page += 1
-        executeSearchRequest()
+        executeSearchRequest(on: page + 1)
     }
     
     func didSelectBook(at index: Int) {
@@ -52,7 +52,7 @@ final class SearchPresenter: SearchPresentable {
     
     // MARK:- Helpers
     
-    private func executeSearchRequest() {
+    private func executeSearchRequest(on page: Int) {
         searchService.search(query: query, page: page) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async { [weak self] in
@@ -61,14 +61,35 @@ final class SearchPresenter: SearchPresentable {
                 case .success(let searchResult):
                     self.handleSearchResult(searchResult)
                 case .failure(let error):
-                    self.view?.showError(message: error.localizedDescription)
+                    self.handleError(error)
                 }
             }
         }
     }
     
+    private func handleError(_ error: Error) {
+        guard let networkError = error as? NetworkError else {
+            view?.showError(message: error.localizedDescription)
+            return
+        }
+        
+        // Only show alert if the request errored not from being cancelled
+        switch networkError {
+        case .cancelled:
+            break
+        default:
+            view?.showError(message: networkError.localizedDescription)
+        }
+    }
+    
     private func handleSearchResult(_ result: SearchResult) {
+        // Increment to next page
+        self.page = result.nextPage
+        
+        // Add new books to data source
         self.books.append(contentsOf: result.container.books)
+        
+        // Create display items
         let displayItems: [BookSearchDisplayItem] = result.container.books
             .map { book in
                 let imageUrl: URL? = {
@@ -80,6 +101,8 @@ final class SearchPresenter: SearchPresentable {
                 return BookSearchDisplayItem(imageUrl: imageUrl,
                                              title: book.title ?? "Unknown")
             }
+        
+        // Notify view of new display items to show
         view?.showSearchResults(displayItems)
     }
 }

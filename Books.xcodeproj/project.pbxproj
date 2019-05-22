@@ -32,6 +32,8 @@
 		AB1AD1882293F21500409228 /* BookSearchDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1872293F21500409228 /* BookSearchDisplayItem.swift */; };
 		AB1AD1902293F6D700409228 /* BookSearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD18F2293F6D700409228 /* BookSearchResultTableViewCell.swift */; };
 		AB1AD1932293F70200409228 /* UITableView+CellReuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */; };
+		ABDD7712229401B700E7A44C /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD7711229401B700E7A44C /* LoadingFooterView.swift */; };
+		ABDD77142294FAF900E7A44C /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD77132294FAF900E7A44C /* NetworkRequest.swift */; };
 		F88EA6A4AA526A22E80745C0 /* Pods_BooksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620B25CD3CC0FBAC5CB4F1D4 /* Pods_BooksTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +80,8 @@
 		AB1AD1872293F21500409228 /* BookSearchDisplayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchDisplayItem.swift; sourceTree = "<group>"; };
 		AB1AD18F2293F6D700409228 /* BookSearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CellReuse.swift"; sourceTree = "<group>"; };
+		ABDD7711229401B700E7A44C /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
+		ABDD77132294FAF900E7A44C /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		BECF0889A516A3BBD6E3947C /* Pods-Books.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Books.release.xcconfig"; path = "Target Support Files/Pods-Books/Pods-Books.release.xcconfig"; sourceTree = "<group>"; };
 		E3D3A7F48C0D2D8B7CD583D2 /* Pods-BooksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BooksTests.debug.xcconfig"; path = "Target Support Files/Pods-BooksTests/Pods-BooksTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +199,7 @@
 			children = (
 				AB1AD1392293D40500409228 /* ViewController.swift */,
 				AB1AD15D2293D46100409228 /* TabBarViewController.swift */,
+				ABDD7711229401B700E7A44C /* LoadingFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				AB1AD1722293DB2600409228 /* NetworkService.swift */,
+				ABDD77132294FAF900E7A44C /* NetworkRequest.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -307,7 +313,6 @@
 				E3D3A7F48C0D2D8B7CD583D2 /* Pods-BooksTests.debug.xcconfig */,
 				00E861D965EA4406F4560A65 /* Pods-BooksTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -464,12 +469,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Books/Pods-Books-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -490,12 +497,14 @@
 				AB1AD1692293D73900409228 /* FlowFactory.swift in Sources */,
 				AB1AD16C2293D7C600409228 /* DataStore.swift in Sources */,
 				AB1AD1672293D64C00409228 /* SearchViewController.swift in Sources */,
+				ABDD7712229401B700E7A44C /* LoadingFooterView.swift in Sources */,
 				AB1AD13A2293D40500409228 /* ViewController.swift in Sources */,
 				AB1AD1632293D58400409228 /* SearchFlow.swift in Sources */,
 				AB1AD1882293F21500409228 /* BookSearchDisplayItem.swift in Sources */,
 				AB1AD1402293D40500409228 /* Books.xcdatamodeld in Sources */,
 				AB1AD1382293D40500409228 /* AppDelegate.swift in Sources */,
 				AB1AD1812293E85F00409228 /* SearchResult.swift in Sources */,
+				ABDD77142294FAF900E7A44C /* NetworkRequest.swift in Sources */,
 				AB1AD1902293F6D700409228 /* BookSearchResultTableViewCell.swift in Sources */,
 				AB1AD1652293D61200409228 /* SearchPresenter.swift in Sources */,
 				AB1AD1732293DB2600409228 /* NetworkService.swift in Sources */,
