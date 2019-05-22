@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 
 protocol SearchViewable: Viewable {
-    func showError(message: String)
     func showSearchResults(dataSource: SearchDataSource)
 }
 
@@ -91,14 +90,6 @@ final class SearchViewController: ViewController, SearchViewable {
     }
 
     // MARK:- SearchViewable
-    
-    func showError(message: String) {
-        let alert = UIAlertController(title: "An Error Occurred",
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(.init(title: "Ok", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
     
     func showSearchResults(dataSource: SearchDataSource) {
         self.dataSource = dataSource

@@ -12,6 +12,7 @@ protocol BookDetailViewable: Viewable {
     func updateHeader(displayItem: BookDetailHeaderDisplayItem)
     func updateAuthors(displayItem: BookDetailTitleDescriptionDisplayItem)
     func updatePublishers(displayItem: BookDetailTitleDescriptionDisplayItem)
+    func updateWishListButton(title: String)
 }
 
 final class BookDetailViewController: ViewController, BookDetailViewable {
@@ -87,7 +88,7 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
     // MARK:- Actions
     
     @objc private func addToWishListButtonTapped() {
-        
+        presenter.didTapWishListButton()
     }
     
     // MARK:- BookDetailViewable
@@ -102,5 +103,9 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
     
     func updatePublishers(displayItem: BookDetailTitleDescriptionDisplayItem) {
         publishersView.configure(displayItem: displayItem)
+    }
+    
+    func updateWishListButton(title: String) {
+        addToWishListButton.setTitle(title, for: .normal)
     }
 }

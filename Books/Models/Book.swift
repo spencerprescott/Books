@@ -10,45 +10,51 @@ import Foundation
 
 struct Book {
     let coverId: Int?
-    let hasFullText: Bool
     let editionCount: Int?
     let title: String?
     let authorNames: [String]
     let firstPublishYear: Int?
     let key: String?
-    let ia: [String]
-    let authorKeys: [String]
-    let publicScanB: Bool
     let publishers: [String]
 }
 
 extension Book: Decodable {
     enum Key: String, CodingKey {
         case coverId = "cover_i"
-        case hasFullText = "has_fulltext"
         case editionCount = "edition_count"
         case title
         case authorNames = "author_name"
         case firstPublishYear = "first_publish_year"
         case key
-        case ia
-        case authorKeys = "author_key"
-        case publicScanB = "public_scan_b"
         case publisher
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         self.coverId = try container.decodeIfPresent(Int.self, forKey: Key.coverId)
-        self.hasFullText = try container.decodeIfPresent(Bool.self, forKey: Key.hasFullText) ?? false
         self.editionCount = try container.decodeIfPresent(Int.self, forKey: Key.editionCount)
         self.title = try container.decodeIfPresent(String.self, forKey: Key.title)
         self.authorNames = try container.decodeIfPresent([String].self, forKey: Key.authorNames) ?? []
         self.firstPublishYear = try container.decodeIfPresent(Int.self, forKey: Key.firstPublishYear)
         self.key = try container.decodeIfPresent(String.self, forKey: Key.key)
-        self.ia = try container.decodeIfPresent([String].self, forKey: Key.ia) ?? []
-        self.authorKeys = try container.decodeIfPresent([String].self, forKey: Key.authorKeys) ?? []
-        self.publicScanB = try container.decodeIfPresent(Bool.self, forKey: Key.publicScanB) ?? false
         self.publishers = try container.decodeIfPresent([String].self, forKey: Key.publisher) ?? []
+    }
+}
+
+extension Book {
+    init(model: BookModel) {
+        self.title = model.title
+        self.coverId = Int(model.coverId)
+        self.editionCount = Int(model.editionCount)
+        self.key = model.key
+        self.firstPublishYear = Int(model.firstPublishYear)
+        self.authorNames = model.authors?
+            .compactMap { $0 as? AuthorModel }
+            .compactMap { $0.name }
+            ?? []
+        self.publishers = model.publishers?
+            .compactMap { $0 as? PublisherModel }
+            .compactMap { $0.name }
+            ?? []
     }
 }

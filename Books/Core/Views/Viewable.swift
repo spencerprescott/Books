@@ -16,6 +16,7 @@ enum DisplayStyle {
 
 protocol Viewable: class {
     func viewFlow(_ flow: Flow, displayStyle: DisplayStyle)
+    func showError(message: String)
 }
 
 extension Viewable where Self: UIViewController {
@@ -26,5 +27,14 @@ extension Viewable where Self: UIViewController {
         case .present:
             present(flow.viewController, animated: true, completion: nil)
         }
+    }
+    
+    
+    func showError(message: String) {
+        let alert = UIAlertController(title: "An Error Occurred",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(.init(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -53,6 +53,7 @@
 		ABDD773C2295248300E7A44C /* UIView+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD773B2295248300E7A44C /* UIView+Utilities.swift */; };
 		ABDD773E2295250600E7A44C /* UIStackView+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD773D2295250600E7A44C /* UIStackView+Utilities.swift */; };
 		ABDD77432295355800E7A44C /* BookDetailStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD77422295355800E7A44C /* BookDetailStorage.swift */; };
+		ABDD774522953EA500E7A44C /* BookModel+Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD774422953EA500E7A44C /* BookModel+Building.swift */; };
 		F88EA6A4AA526A22E80745C0 /* Pods_BooksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620B25CD3CC0FBAC5CB4F1D4 /* Pods_BooksTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,7 @@
 		ABDD773B2295248300E7A44C /* UIView+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utilities.swift"; sourceTree = "<group>"; };
 		ABDD773D2295250600E7A44C /* UIStackView+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Utilities.swift"; sourceTree = "<group>"; };
 		ABDD77422295355800E7A44C /* BookDetailStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailStorage.swift; sourceTree = "<group>"; };
+		ABDD774422953EA500E7A44C /* BookModel+Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookModel+Building.swift"; sourceTree = "<group>"; };
 		BECF0889A516A3BBD6E3947C /* Pods-Books.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Books.release.xcconfig"; path = "Target Support Files/Pods-Books/Pods-Books.release.xcconfig"; sourceTree = "<group>"; };
 		E3D3A7F48C0D2D8B7CD583D2 /* Pods-BooksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BooksTests.debug.xcconfig"; path = "Target Support Files/Pods-BooksTests/Pods-BooksTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,6 +352,7 @@
 				ABDD773322951C9600E7A44C /* UIColor+Theme.swift */,
 				ABDD773B2295248300E7A44C /* UIView+Utilities.swift */,
 				ABDD773D2295250600E7A44C /* UIStackView+Utilities.swift */,
+				ABDD774422953EA500E7A44C /* BookModel+Building.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				ABDD772722950F7000E7A44C /* BookDetailHeaderView.swift in Sources */,
 				ABDD773622951D9800E7A44C /* NavigationController.swift in Sources */,
 				AB1AD17F2293E64900409228 /* Book.swift in Sources */,
+				ABDD774522953EA500E7A44C /* BookModel+Building.swift in Sources */,
 				AB1AD1602293D55A00409228 /* Flow.swift in Sources */,
 				AB1AD1692293D73900409228 /* FlowFactory.swift in Sources */,
 				AB1AD16C2293D7C600409228 /* DataStore.swift in Sources */,

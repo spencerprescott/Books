@@ -18,20 +18,32 @@ final class BookDetailPresenter: BookDetailPresenting {
     weak var view: BookDetailViewable?
     private let book: Book
     private let storage: BookDetailStoring
+    private var isBookOnWishList: Bool
     
     init(book: Book, storage: BookDetailStoring) {
         self.book = book
         self.storage = storage
+        self.isBookOnWishList = storage.isBookOnWishList(book)
     }
     
     func didLoad() {
         updateHeader()
         updateAuthors()
         updatePublishers()
+        updateAddToWishListButton()
     }
     
     func didTapWishListButton() {
-        storage.toggleWishListStatus(of: book)
+        storage.toggleWishListStatus(of: book) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                self.isBookOnWishList.toggle()
+                self.updateAddToWishListButton()
+            case .failure(let error):
+                self.view?.showError(message: error.localizedDescription)
+            }
+        }
     }
     
     // MARK:- UI Updating
@@ -73,5 +85,10 @@ final class BookDetailPresenter: BookDetailPresenting {
         }()
         let displayItem = BookDetailTitleDescriptionDisplayItem(title: title, description: publishersDisplayText)
         view?.updatePublishers(displayItem: displayItem)
+    }
+    
+    private func updateAddToWishListButton() {
+        let title = isBookOnWishList ? "Remove From Wish List" : "Add To Wish List"
+        view?.updateWishListButton(title: title)
     }
 }

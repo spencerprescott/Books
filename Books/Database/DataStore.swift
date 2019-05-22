@@ -14,7 +14,7 @@ protocol DataStoring: class {
     /// Context associated with main queue
     var viewContext: NSManagedObjectContext { get }
     /// Executes core data writes on the background queue, calls save handler on main queue
-    func write(handler: @escaping (NSManagedObjectContext) -> Void, saveCompletion: ((Result<Void, Error>) -> Void)?)
+    func write(handler: @escaping (NSManagedObjectContext) -> Result<Void, Error>, saveCompletion: ((Result<Void, Error>) -> Void)?)
     /// Save all changes
     func saveContext()
 }
@@ -24,24 +24,26 @@ extension DataStoring {
         return persistentContainer.viewContext
     }
     
-    func write(handler: @escaping (NSManagedObjectContext) -> Void, saveCompletion: ((Result<Void, Error>) -> Void)?) {
-        persistentContainer.performBackgroundTask { context in
-            handler(context)
-            var writeError: Error?
-            do {
-                try context.save()
-            } catch {
-                writeError = error
-                print("Failed to save context: \(error.localizedDescription)")
+    func write(handler: @escaping (NSManagedObjectContext) -> Result<Void, Error>, saveCompletion: ((Result<Void, Error>) -> Void)?) {
+        persistentContainer.performBackgroundTask { [weak self] context in
+            guard let self = self else { return }
+            let result = handler(context)
+            switch result {
+            case .success:
+                do {
+                    try context.save()
+                    self.notifySaveCompletion(result: .success(result: ()),
+                                              saveCompletion: saveCompletion)
+                } catch {
+                    self.notifySaveCompletion(result: .failure(error: error),
+                                              saveCompletion: saveCompletion)
+                }
+            case .failure(let error):
+                self.notifySaveCompletion(result: .failure(error: error),
+                                          saveCompletion: saveCompletion)
             }
             
-            DispatchQueue.main.async {
-                if let error = writeError {
-                    saveCompletion?(.failure(error: error))
-                } else {
-                    saveCompletion?(.success(result: ()))
-                }
-            }
+          
         }
     }
     
@@ -54,6 +56,12 @@ extension DataStoring {
                 let nserror = error as NSError
                 fatalError("Error saving context \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    private func notifySaveCompletion(result: Result<Void, Error>, saveCompletion: ((Result<Void, Error>) -> Void)?) {
+        DispatchQueue.main.async {
+            saveCompletion?(result)
         }
     }
 }
