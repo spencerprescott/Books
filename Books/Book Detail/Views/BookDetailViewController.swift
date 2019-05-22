@@ -10,7 +10,8 @@ import UIKit
 
 protocol BookDetailViewable: Viewable {
     func updateHeader(displayItem: BookDetailHeaderDisplayItem)
-    func updateAuthors(displayItem: BookDetailAuthorsDisplayItem)
+    func updateAuthors(displayItem: BookDetailTitleDescriptionDisplayItem)
+    func updatePublishers(displayItem: BookDetailTitleDescriptionDisplayItem)
 }
 
 final class BookDetailViewController: ViewController, BookDetailViewable {
@@ -19,13 +20,10 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         v.axis = .vertical
         return v
     }()
-    
     private lazy var scrollView = UIScrollView(frame: .zero)
-    
     private lazy var headerView = BookDetailHeaderView()
-    
-    private lazy var authorsView = BookDetailAuthorsView()
-
+    private lazy var authorsView = BookDetailTitleDescriptionView()
+    private lazy var publishersView = BookDetailTitleDescriptionView()
     private lazy var addToWishListButton: Button = {
         let b = Button(style: .filled)
         // TODO: Let presenter determine text
@@ -80,6 +78,7 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         stackView.addArrangedSubview(headerView)
         stackView.addArrangedSubview(authorsView)
         stackView.addSeparatorView()
+        stackView.addArrangedSubview(publishersView)
         
         // Trigger UI Updates
         presenter.didLoad()
@@ -97,7 +96,11 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         headerView.configure(displayItem: displayItem)
     }
     
-    func updateAuthors(displayItem: BookDetailAuthorsDisplayItem) {
+    func updateAuthors(displayItem: BookDetailTitleDescriptionDisplayItem) {
         authorsView.configure(displayItem: displayItem)
+    }
+    
+    func updatePublishers(displayItem: BookDetailTitleDescriptionDisplayItem) {
+        publishersView.configure(displayItem: displayItem)
     }
 }

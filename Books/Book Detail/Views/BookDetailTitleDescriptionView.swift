@@ -1,5 +1,5 @@
 //
-//  BookDetailAuthorsView.swift
+//  BookDetailTitleDescriptionView.swift
 //  Books
 //
 //  Created by Spencer Prescott on 5/21/19.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-final class BookDetailAuthorsView: UIView {
+final class BookDetailTitleDescriptionView: UIView {
     private lazy var titleLabel: UILabel = {
         let l = UILabel(frame: .zero)
         l.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         return l
     }()
  
-    private lazy var authorsLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let l = UILabel(frame: .zero)
         l.numberOfLines = 0
         l.textColor = .gray
@@ -31,8 +31,8 @@ final class BookDetailAuthorsView: UIView {
             make.leading.trailing.equalToSuperview().inset(18)
         }
         
-        addSubview(authorsLabel)
-        authorsLabel.snp.makeConstraints { make in
+        addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.leading.trailing.equalToSuperview().inset(18)
             make.bottom.equalToSuperview().inset(20)
@@ -43,8 +43,8 @@ final class BookDetailAuthorsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(displayItem: BookDetailAuthorsDisplayItem) {
+    func configure(displayItem: BookDetailTitleDescriptionDisplayItem) {
         titleLabel.text = displayItem.title
-        authorsLabel.text = displayItem.authors
+        descriptionLabel.text = displayItem.description
     }
 }

@@ -1,5 +1,5 @@
 //
-//  BookDetailAuthorsDisplayItem.swift
+//  BookDetailTitleDescriptionDisplayItem.swift
 //  Books
 //
 //  Created by Spencer Prescott on 5/21/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BookDetailAuthorsDisplayItem {
+struct BookDetailTitleDescriptionDisplayItem {
     let title: String
-    let authors: String
+    let description: String
 }

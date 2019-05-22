@@ -44,7 +44,8 @@ final class FlowFactory {
     }
     
     private func buildBookDetailFlow(book: Book) -> BookDetailFlow {
-        let presenter = BookDetailPresenter(book: book)
+        let storage = BookDetailStorage(dataStore: dataStore)
+        let presenter = BookDetailPresenter(book: book, storage: storage)
         return BookDetailFlow(presenter: presenter)
     }
 }

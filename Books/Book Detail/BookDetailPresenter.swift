@@ -11,19 +11,27 @@ import Foundation
 protocol BookDetailPresenting: class {
     var view: BookDetailViewable? { get set }
     func didLoad()
+    func didTapWishListButton()
 }
 
 final class BookDetailPresenter: BookDetailPresenting {
     weak var view: BookDetailViewable?
     private let book: Book
+    private let storage: BookDetailStoring
     
-    init(book: Book) {
+    init(book: Book, storage: BookDetailStoring) {
         self.book = book
+        self.storage = storage
     }
     
     func didLoad() {
         updateHeader()
         updateAuthors()
+        updatePublishers()
+    }
+    
+    func didTapWishListButton() {
+        storage.toggleWishListStatus(of: book)
     }
     
     // MARK:- UI Updating
@@ -50,7 +58,20 @@ final class BookDetailPresenter: BookDetailPresenting {
                 return book.authorNames.joined(separator: ", ")
             }
         }()
-        let displayItem = BookDetailAuthorsDisplayItem(title: title, authors: authorsDisplayText)
+        let displayItem = BookDetailTitleDescriptionDisplayItem(title: title, description: authorsDisplayText)
         view?.updateAuthors(displayItem: displayItem)
+    }
+    
+    private func updatePublishers() {
+        let title = book.publishers.count <= 1 ? "Publisher" : "Publishers"
+        let publishersDisplayText: String = {
+            if book.publishers.isEmpty {
+                return "Unknown"
+            } else {
+                return book.publishers.joined(separator: ", ")
+            }
+        }()
+        let displayItem = BookDetailTitleDescriptionDisplayItem(title: title, description: publishersDisplayText)
+        view?.updatePublishers(displayItem: displayItem)
     }
 }
