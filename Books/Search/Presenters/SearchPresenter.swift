@@ -90,7 +90,7 @@ final class SearchPresenter: SearchPresentable {
         self.books.append(contentsOf: result.container.books)
         
         // Create display items
-        let displayItems: [BookSearchDisplayItem] = result.container.books
+        let displayItems: [BookSearchDisplayItem] = self.books
             .map { book in
                 let imageUrl: URL? = {
                     if let id = book.coverId {
@@ -102,7 +102,8 @@ final class SearchPresenter: SearchPresentable {
                                              title: book.title ?? "Unknown")
             }
         
+        let dataSource = SearchDataSource(items: displayItems)
         // Notify view of new display items to show
-        view?.showSearchResults(displayItems)
+        view?.showSearchResults(dataSource: dataSource)
     }
 }

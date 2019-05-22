@@ -12,16 +12,11 @@ import SnapKit
 protocol SearchViewable: class {
     func viewBook(detailFlow: Flow)
     func showError(message: String)
-    func showSearchResults(_ displayItems: [BookSearchDisplayItem])
+    func showSearchResults(dataSource: SearchDataSource)
 }
 
 final class SearchViewController: ViewController, SearchViewable {
     private let presenter: SearchPresentable
-    private var displayItems: [BookSearchDisplayItem] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
   
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
@@ -36,11 +31,19 @@ final class SearchViewController: ViewController, SearchViewable {
         v.estimatedRowHeight = 100
         v.rowHeight = UITableViewAutomaticDimension
         v.delegate = self
-        // TODO: Move to separate class
-        v.dataSource = self
         v.register([BookSearchResultTableViewCell.self])
         return v
     }()
+    
+    private lazy var loadingView = LoadingFooterView()
+    
+    private var dataSource: SearchDataSource = .empty {
+        didSet {
+            tableView.dataSource = dataSource
+            loadingView.isHidden = dataSource.isEmpty
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: SearchPresentable) {
         self.presenter = presenter
@@ -77,15 +80,13 @@ final class SearchViewController: ViewController, SearchViewable {
         definesPresentationContext = true
         
         // Setup Loading Footer
-        tableView.tableFooterView = {
-            let footer = LoadingFooterView()
-            let fittingSize = CGSize(width: view.bounds.width, height: 0)
-            let size = footer.systemLayoutSizeFitting(fittingSize,
-                                                      withHorizontalFittingPriority: .required,
-                                                      verticalFittingPriority: .fittingSizeLevel)
-            footer.frame = CGRect(origin: .zero, size: size)
-            return footer
-        }()
+        let fittingSize = CGSize(width: view.bounds.width, height: 0)
+        let size = loadingView.systemLayoutSizeFitting(fittingSize,
+                                                       withHorizontalFittingPriority: .required,
+                                                       verticalFittingPriority: .fittingSizeLevel)
+        loadingView.frame = CGRect(origin: .zero, size: size)
+        tableView.tableFooterView = loadingView
+        loadingView.isHidden = dataSource.isEmpty
     }
 
     // MARK:- SearchViewable
@@ -102,22 +103,12 @@ final class SearchViewController: ViewController, SearchViewable {
         present(alert, animated: true, completion: nil)
     }
     
-    func showSearchResults(_ displayItems: [BookSearchDisplayItem]) {
-        self.displayItems.append(contentsOf: displayItems)
+    func showSearchResults(dataSource: SearchDataSource) {
+        self.dataSource = dataSource
     }
 }
 
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(BookSearchResultTableViewCell.self, for: indexPath)
-        cell.configure(displayItem: displayItems[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayItems.count
-    }
-    
+extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectBook(at: indexPath.row)
     }
@@ -145,7 +136,6 @@ extension SearchViewController: UISearchResultsUpdating {
     }
     
     @objc private func search() {
-        displayItems = []
         presenter.search(query: searchController.searchBar.text)
     }
 }

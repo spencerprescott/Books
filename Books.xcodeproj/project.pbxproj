@@ -34,6 +34,7 @@
 		AB1AD1932293F70200409228 /* UITableView+CellReuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */; };
 		ABDD7712229401B700E7A44C /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD7711229401B700E7A44C /* LoadingFooterView.swift */; };
 		ABDD77142294FAF900E7A44C /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD77132294FAF900E7A44C /* NetworkRequest.swift */; };
+		ABDD7716229506EB00E7A44C /* SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD7715229506EB00E7A44C /* SearchDataSource.swift */; };
 		F88EA6A4AA526A22E80745C0 /* Pods_BooksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620B25CD3CC0FBAC5CB4F1D4 /* Pods_BooksTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		AB1AD1922293F70200409228 /* UITableView+CellReuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CellReuse.swift"; sourceTree = "<group>"; };
 		ABDD7711229401B700E7A44C /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		ABDD77132294FAF900E7A44C /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		ABDD7715229506EB00E7A44C /* SearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataSource.swift; sourceTree = "<group>"; };
 		BECF0889A516A3BBD6E3947C /* Pods-Books.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Books.release.xcconfig"; path = "Target Support Files/Pods-Books/Pods-Books.release.xcconfig"; sourceTree = "<group>"; };
 		E3D3A7F48C0D2D8B7CD583D2 /* Pods-BooksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BooksTests.debug.xcconfig"; path = "Target Support Files/Pods-BooksTests/Pods-BooksTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +253,7 @@
 			children = (
 				AB1AD1802293E85F00409228 /* SearchResult.swift */,
 				AB1AD1872293F21500409228 /* BookSearchDisplayItem.swift */,
+				ABDD7715229506EB00E7A44C /* SearchDataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				AB1AD1602293D55A00409228 /* Flow.swift in Sources */,
 				AB1AD1692293D73900409228 /* FlowFactory.swift in Sources */,
 				AB1AD16C2293D7C600409228 /* DataStore.swift in Sources */,
+				ABDD7716229506EB00E7A44C /* SearchDataSource.swift in Sources */,
 				AB1AD1672293D64C00409228 /* SearchViewController.swift in Sources */,
 				ABDD7712229401B700E7A44C /* LoadingFooterView.swift in Sources */,
 				AB1AD13A2293D40500409228 /* ViewController.swift in Sources */,
