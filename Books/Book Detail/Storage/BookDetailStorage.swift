@@ -1,5 +1,5 @@
 //
-//  BookDetailStorage.swift
+//  WishListStorage.swift
 //  Books
 //
 //  Created by Spencer Prescott on 5/22/19.
@@ -42,7 +42,7 @@ final class BookDetailStorage: BookDetailStoring {
             guard let self = self
                 else { return .failure(error: BookDetailStorageError(errorDescription: "Unknown Error")) }
             return self.toggleWishListStatus(of: book, context: context)
-        }, saveCompletion: completion)
+            }, saveCompletion: completion)
     }
     
     private func toggleWishListStatus(of book: Book, context: NSManagedObjectContext) -> Result<Void, Error> {
@@ -59,7 +59,7 @@ final class BookDetailStorage: BookDetailStoring {
                 context.delete(bookModel)
                 return .success(result: ())
             }
-            // Otherwise save the book so its on the wishlist
+                // Otherwise save the book so its on the wishlist
             else {
                 guard let _ = BookModel(context: context, book: book)
                     else { return .failure(error: BookDetailStorageError(errorDescription: "Failed to save book")) }

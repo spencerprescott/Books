@@ -48,7 +48,6 @@ final class SearchViewController: ViewController, SearchViewable {
         super.init()
         self.presenter.view = self
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        self.hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -70,8 +69,8 @@ final class SearchViewController: ViewController, SearchViewable {
         super.viewDidLoad()
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
         }
         
         // Setup Navigation Bar

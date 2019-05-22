@@ -29,7 +29,7 @@ final class FlowFactory {
         case .search:
             return buildSearchFlow()
         case .wishList:
-            return EmptyFlow()
+            return buildWishListFlow()
         case .detail(let book):
             return buildBookDetailFlow(book: book)
         }
@@ -41,6 +41,12 @@ final class FlowFactory {
         let searchService = SearchService(networkService: networkService)
         let presenter = SearchPresenter(searchService: searchService)
         return SearchFlow(presenter: presenter)
+    }
+    
+    private func buildWishListFlow() -> WishListFlow {
+        let storage = WishListStorage(dataStore: dataStore)
+        let presenter = WishListPresenter(storage: storage)
+        return WishListFlow(presenter: presenter)
     }
     
     private func buildBookDetailFlow(book: Book) -> BookDetailFlow {

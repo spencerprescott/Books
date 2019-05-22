@@ -27,8 +27,6 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
     private lazy var publishersView = BookDetailTitleDescriptionView()
     private lazy var addToWishListButton: Button = {
         let b = Button(style: .filled)
-        // TODO: Let presenter determine text
-        b.setTitle("Add To Wish List", for: .normal)
         b.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
         return b
     }()
@@ -39,6 +37,7 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         self.presenter = presenter
         super.init()
         self.presenter.view = self
+        self.hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
