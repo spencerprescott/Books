@@ -9,8 +9,7 @@
 import UIKit
 import SnapKit
 
-protocol SearchViewable: class {
-    func viewBook(detailFlow: Flow)
+protocol SearchViewable: Viewable {
     func showError(message: String)
     func showSearchResults(dataSource: SearchDataSource)
 }
@@ -22,7 +21,7 @@ final class SearchViewController: ViewController, SearchViewable {
         let controller = UISearchController(searchResultsController: nil)
         controller.obscuresBackgroundDuringPresentation = false
         controller.searchBar.placeholder = "Search Books"
-        controller.searchResultsUpdater = self
+        controller.searchBar.delegate = self
         return controller
     }()
 
@@ -49,6 +48,8 @@ final class SearchViewController: ViewController, SearchViewable {
         self.presenter = presenter
         super.init()
         self.presenter.view = self
+        self.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        self.hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,6 +59,7 @@ final class SearchViewController: ViewController, SearchViewable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +76,6 @@ final class SearchViewController: ViewController, SearchViewable {
         }
         
         // Setup Navigation Bar
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Books"
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -90,10 +91,6 @@ final class SearchViewController: ViewController, SearchViewable {
     }
 
     // MARK:- SearchViewable
-    
-    func viewBook(detailFlow: Flow) {
-        
-    }
     
     func showError(message: String) {
         let alert = UIAlertController(title: "An Error Occurred",
@@ -129,8 +126,9 @@ extension SearchViewController: UIScrollViewDelegate {
     }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Throttle text input to every half second
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(search), object: nil)
         perform(#selector(search), with: nil, afterDelay: 0.5)
     }

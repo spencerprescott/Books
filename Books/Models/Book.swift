@@ -19,6 +19,7 @@ struct Book {
     let ia: [String]
     let authorKeys: [String]
     let publicScanB: Bool
+    let publishers: [String]
 }
 
 extension Book: Decodable {
@@ -33,6 +34,7 @@ extension Book: Decodable {
         case ia
         case authorKeys = "author_key"
         case publicScanB = "public_scan_b"
+        case publisher
     }
     
     init(from decoder: Decoder) throws {
@@ -47,5 +49,6 @@ extension Book: Decodable {
         self.ia = try container.decodeIfPresent([String].self, forKey: Key.ia) ?? []
         self.authorKeys = try container.decodeIfPresent([String].self, forKey: Key.authorKeys) ?? []
         self.publicScanB = try container.decodeIfPresent(Bool.self, forKey: Key.publicScanB) ?? false
+        self.publishers = try container.decodeIfPresent([String].self, forKey: Key.publisher) ?? []
     }
 }

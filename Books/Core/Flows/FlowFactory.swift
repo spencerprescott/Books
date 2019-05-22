@@ -12,7 +12,7 @@ final class FlowFactory {
     enum FlowType {
         case search
         case wishList
-        case detail
+        case detail(book: Book)
     }
     
     private let dataStore: DataStoring
@@ -30,8 +30,8 @@ final class FlowFactory {
             return buildSearchFlow()
         case .wishList:
             return EmptyFlow()
-        case .detail:
-            return EmptyFlow()
+        case .detail(let book):
+            return buildBookDetailFlow(book: book)
         }
     }
     
@@ -39,6 +39,12 @@ final class FlowFactory {
     
     private func buildSearchFlow() -> SearchFlow {
         let searchService = SearchService(networkService: networkService)
-        return SearchFlow(presenter: SearchPresenter(searchService: searchService))
+        let presenter = SearchPresenter(searchService: searchService)
+        return SearchFlow(presenter: presenter)
+    }
+    
+    private func buildBookDetailFlow(book: Book) -> BookDetailFlow {
+        let presenter = BookDetailPresenter(book: book)
+        return BookDetailFlow(presenter: presenter)
     }
 }

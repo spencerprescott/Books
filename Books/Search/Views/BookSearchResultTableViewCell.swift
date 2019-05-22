@@ -57,6 +57,12 @@ final class BookSearchResultTableViewCell: UITableViewCell {
 
     func configure(displayItem: BookSearchDisplayItem) {
         titleLabel.text = displayItem.title
-        coverImageView.kf.setImage(with: displayItem.imageUrl)
+        coverImageView.kf.setImage(with: displayItem.imageUrl) { [weak self] result in
+            guard let self = self else { return }
+            // If download fails, use placeholder image
+            if case .failure = result {
+                self.coverImageView.image = UIImage(named: "cover-placeholder")
+            }
+        }
     }
 }

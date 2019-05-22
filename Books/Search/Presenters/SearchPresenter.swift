@@ -48,6 +48,8 @@ final class SearchPresenter: SearchPresentable {
     
     func didSelectBook(at index: Int) {
         let book = books[index]
+        let detailFlow = FlowFactory().flow(flowType: .detail(book: book))
+        view?.viewFlow(detailFlow, displayStyle: .push)
     }
     
     // MARK:- Helpers
