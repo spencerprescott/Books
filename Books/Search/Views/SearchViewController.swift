@@ -40,6 +40,8 @@ final class SearchViewController: ViewController, SearchViewable {
             tableView.dataSource = dataSource
             loadingView.isHidden = dataSource.isEmpty
             tableView.reloadData()
+            // Renable selection after new content is loaded in
+            tableView.allowsSelection = true
         }
     }
     
@@ -125,6 +127,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     @objc private func search() {
+        // Disable selection while content for new search loads
+        tableView.allowsSelection = false
         presenter.search(query: searchController.searchBar.text)
     }
 }
