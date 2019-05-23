@@ -39,13 +39,13 @@ final class FlowFactory {
     
     private func buildSearchFlow() -> SearchFlow {
         let searchService = SearchService(networkService: networkService)
-        let presenter = SearchPresenter(searchService: searchService)
+        let presenter = SearchPresenter(searchService: searchService, flowFactory: self)
         return SearchFlow(presenter: presenter)
     }
     
     private func buildWishListFlow() -> WishListFlow {
         let storage = WishListStorage(dataStore: dataStore)
-        let presenter = WishListPresenter(storage: storage)
+        let presenter = WishListPresenter(storage: storage, flowFactory: self)
         return WishListFlow(presenter: presenter)
     }
     

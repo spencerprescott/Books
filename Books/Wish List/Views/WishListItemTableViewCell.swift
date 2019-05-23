@@ -1,18 +1,16 @@
 //
-//  BookSearchResultTableViewCell.swift
+//  WishListItemTableViewCell.swift
 //  Books
 //
-//  Created by Spencer Prescott on 5/21/19.
+//  Created by Spencer Prescott on 5/22/19.
 //  Copyright © 2019 Spencer Prescott. All rights reserved.
 //
 
 import UIKit
-import Kingfisher
-import SnapKit
 
-final class BookSearchResultTableViewCell: UITableViewCell {
+final class WishListItemTableViewCell: UITableViewCell {
     private lazy var coverImageView = BookCoverImageView()
-    
+
     private lazy var titleLabel: UILabel = {
         let l = UILabel()
         l.numberOfLines = 3
@@ -20,10 +18,21 @@ final class BookSearchResultTableViewCell: UITableViewCell {
         return l
     }()
     
+    private lazy var dateAddedLabel: UILabel = {
+        let l = UILabel()
+        l.numberOfLines = 1
+        l.font = UIFont.systemFont(ofSize: 16)
+        l.textColor = .gray
+        return l
+    }()
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(coverImageView)
-        contentView.addSubview(titleLabel)
+        
+        let textStackView = UIStackView(arrangedSubviews: [titleLabel, dateAddedLabel])
+        textStackView.axis = .vertical
+        contentView.addSubview(textStackView)
         
         coverImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(18)
@@ -32,7 +41,7 @@ final class BookSearchResultTableViewCell: UITableViewCell {
             make.height.equalTo(50)
         }
         
-        titleLabel.snp.makeConstraints { make in
+        textStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(20)
             make.trailing.equalToSuperview().inset(18)
             make.leading.equalTo(coverImageView.snp.trailing).offset(18)
@@ -43,15 +52,9 @@ final class BookSearchResultTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        coverImageView.kf.cancelDownloadTask()
-        coverImageView.image = nil
-        titleLabel.text = nil
-    }
-
-    func configure(displayItem: BookSearchDisplayItem) {
+    func configure(displayItem: WishListDisplayItem) {
         titleLabel.text = displayItem.title
+        dateAddedLabel.text = displayItem.dateAdded
         coverImageView.setImageUrl(displayItem.imageUrl)
     }
 }

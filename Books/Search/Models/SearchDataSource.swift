@@ -9,7 +9,7 @@
 import UIKit
 
 final class SearchDataSource: NSObject {
-    static let empty = SearchDataSource(items: [])
+    static let empty = SearchDataSource(books: [])
     
     /// Returns if the data sources has any items to show
     var isEmpty: Bool {
@@ -18,8 +18,21 @@ final class SearchDataSource: NSObject {
     
     private let items: [BookSearchDisplayItem]
     
-    init(items: [BookSearchDisplayItem]) {
-        self.items = items
+    init(books: [Book]) {
+        
+        // Maps Book to BookSearchDisplayItem
+        func displayItem(from book: Book) -> BookSearchDisplayItem {
+            let imageUrl: URL? = {
+                if let id = book.coverId {
+                    return URL(string: "http://covers.openlibrary.org/b/ID/\(id)-S.jpg")
+                }
+                return nil
+            }()
+            return BookSearchDisplayItem(imageUrl: imageUrl,
+                                         title: book.title ?? "Unknown")
+        }
+        
+        self.items = books.map(displayItem)
         super.init()
     }
 }
@@ -30,8 +43,9 @@ extension SearchDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = items[indexPath.row]
         let cell = tableView.dequeue(BookSearchResultTableViewCell.self, for: indexPath)
-        cell.configure(displayItem: items[indexPath.row])
+        cell.configure(displayItem: item)
         return cell
     }
 }

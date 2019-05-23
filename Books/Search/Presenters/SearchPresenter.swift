@@ -20,6 +20,7 @@ final class SearchPresenter: SearchPresentable {
     weak var view: SearchViewable?
     
     private let searchService: SearchServicing
+    private let flowFactory: FlowFactory
     /// Page user is currently viewing
     private var page: Int = 1
     /// Query the user is currently searcing for
@@ -27,8 +28,9 @@ final class SearchPresenter: SearchPresentable {
     /// Books loaded from search request
     private var books: [Book] = []
     
-    init(searchService: SearchServicing) {
+    init(searchService: SearchServicing, flowFactory: FlowFactory) {
         self.searchService = searchService
+        self.flowFactory = flowFactory
     }
     
     // MARK:- SearchPresentable
@@ -48,7 +50,7 @@ final class SearchPresenter: SearchPresentable {
     
     func didSelectBook(at index: Int) {
         let book = books[index]
-        let detailFlow = FlowFactory().flow(flowType: .detail(book: book))
+        let detailFlow = flowFactory.flow(flowType: .detail(book: book))
         view?.viewFlow(detailFlow, displayStyle: .push)
     }
     
@@ -91,20 +93,8 @@ final class SearchPresenter: SearchPresentable {
         // Add new books to data source
         self.books.append(contentsOf: result.container.books)
         
-        // Create display items
-        let displayItems: [BookSearchDisplayItem] = self.books
-            .map { book in
-                let imageUrl: URL? = {
-                    if let id = book.coverId {
-                        return URL(string: "http://covers.openlibrary.org/b/ID/\(id)-S.jpg")
-                    }
-                    return nil
-                }()
-                return BookSearchDisplayItem(imageUrl: imageUrl,
-                                             title: book.title ?? "Unknown")
-            }
-        
-        let dataSource = SearchDataSource(items: displayItems)
+    
+        let dataSource = SearchDataSource(books: books)
         // Notify view of new display items to show
         view?.showSearchResults(dataSource: dataSource)
     }

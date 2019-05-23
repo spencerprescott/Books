@@ -11,24 +11,39 @@ import Foundation
 protocol WishListPresenting: class {
     var view: WishListViewable? { get set }
     func didLoad()
+    func didSelectItem(at indexPath: IndexPath)
 }
 
 final class WishListPresenter: WishListPresenting {
     weak var view: WishListViewable?
     private let storage: WishListStoring
+    private let flowFactory: FlowFactory
     
-    init(storage: WishListStoring) {
+    init(storage: WishListStoring, flowFactory: FlowFactory) {
         self.storage = storage
+        self.flowFactory = flowFactory
         self.storage.delegate = self
     }
     
     func didLoad() {
-        // Load books from core data
-        let result = storage.refreshBooks()
-        // If fetch fails then show error alert
-        if case let .failure(error) = result {
+        // Load items from core data
+        let result = storage.loadItems()
+
+        // Update view with result
+        switch result {
+        case .success:
+            let dataSource = WishListDataSource(storage: storage)
+            view?.didLoadItems(dataSource: dataSource)
+        case .failure(let error):
             view?.showError(message: error.localizedDescription)
         }
+    }
+    
+    func didSelectItem(at indexPath: IndexPath) {
+        let item = storage.item(at: indexPath)
+        let book = item.book
+        let flow = flowFactory.flow(flowType: .detail(book: book))
+        view?.viewFlow(flow, displayStyle: .push)
     }
 }
 

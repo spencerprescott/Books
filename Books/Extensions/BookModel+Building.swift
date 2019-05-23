@@ -32,5 +32,7 @@ extension BookModel {
         self.firstPublishYear = Int64(book.firstPublishYear ?? 0)
         self.key = book.key
         self.title = book.title
+        // Use current date
+        self.dateAdded = Date()
     }
 }

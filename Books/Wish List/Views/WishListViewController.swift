@@ -12,15 +12,28 @@ protocol WishListViewable: Viewable {
     func wishListWillUpdate()
     func wishListUpdated(itemUpdate: ItemUpdate)
     func wishListDidFinishUpdating()
+    func didLoadItems(dataSource: WishListDataSource)
 }
 
 final class WishListViewController: ViewController, WishListViewable {
     private lazy var tableView: UITableView = {
         let v = UITableView(frame: .zero, style: .plain)
+        v.register([WishListItemTableViewCell.self])
+        v.delegate = self
+        v.estimatedRowHeight = 100
+        v.rowHeight = UITableViewAutomaticDimension
+        // Remove separators for empty cells
+        v.tableFooterView = UIView()
         return v
     }()
     
     private let presenter: WishListPresenting
+    private var dataSource: WishListDataSource? {
+        didSet {
+            tableView.dataSource = dataSource
+            tableView.reloadData()
+        }
+    }
     
     init(presenter: WishListPresenting) {
         self.presenter = presenter
@@ -68,5 +81,16 @@ final class WishListViewController: ViewController, WishListViewable {
     
     func wishListDidFinishUpdating() {
         tableView.endUpdates()
+    }
+    
+    func didLoadItems(dataSource: WishListDataSource) {
+        self.dataSource = dataSource
+    }
+}
+
+extension WishListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        presenter.didSelectItem(at: indexPath)
     }
 }

@@ -6,6 +6,7 @@
     </entity>
     <entity name="BookModel" representedClassName="BookModel" syncable="YES" codeGenerationType="class">
         <attribute name="coverId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" spotlightIndexingEnabled="YES" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="editionCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="firstPublishYear" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -18,7 +19,7 @@
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookModel" inverseName="publishers" inverseEntity="BookModel" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookModel" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="BookModel" positionX="-63" positionY="-18" width="128" height="165"/>
         <element name="AuthorModel" positionX="-54" positionY="18" width="128" height="75"/>
         <element name="PublisherModel" positionX="-36" positionY="54" width="128" height="75"/>
     </elements>

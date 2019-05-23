@@ -9,13 +9,7 @@
 import UIKit
 
 final class BookDetailHeaderView: UIView {
-    private lazy var imageView: UIImageView = {
-        let v = UIImageView(frame: .zero)
-        v.kf.indicatorType = .activity
-        v.contentMode = .scaleAspectFit
-        return v
-    }()
-    
+    private lazy var imageView = BookCoverImageView()
     private lazy var backgroundImageView = UIImageView(frame: .zero)
     private lazy var blurView: UIVisualEffectView = {
         let effect = UIBlurEffect(style: .dark)
@@ -65,15 +59,11 @@ final class BookDetailHeaderView: UIView {
     
     func configure(displayItem: BookDetailHeaderDisplayItem) {
         titleLabel.text = displayItem.title
-        imageView.kf.setImage(with: displayItem.imageUrl) { [weak self] result in
+        imageView.setImageUrl(displayItem.imageUrl) { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let value):
+            if case let .success(image) = result {
                 // Set background image
-                self.backgroundImageView.image = value.image
-            case .failure:
-                // If download fails, use placeholder image
-                self.imageView.image = UIImage(named: "cover-placeholder")
+                self.backgroundImageView.image = image
             }
         }
     }
