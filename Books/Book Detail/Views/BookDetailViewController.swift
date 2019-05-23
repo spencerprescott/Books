@@ -13,6 +13,7 @@ protocol BookDetailViewable: Viewable {
     func updateAuthors(displayItem: BookDetailTitleDescriptionDisplayItem)
     func updatePublishers(displayItem: BookDetailTitleDescriptionDisplayItem)
     func updateWishListButton(title: String)
+    func updateMoreInfo(displayItem: BookDetailMoreInfoDisplayItem)
 }
 
 final class BookDetailViewController: ViewController, BookDetailViewable {
@@ -25,6 +26,7 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
     private lazy var headerView = BookDetailHeaderView()
     private lazy var authorsView = BookDetailTitleDescriptionView()
     private lazy var publishersView = BookDetailTitleDescriptionView()
+    private lazy var moreInfoView = BookDetailMoreInfoView()
     private lazy var addToWishListButton: Button = {
         let b = Button(style: .filled)
         b.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
@@ -79,6 +81,8 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         stackView.addArrangedSubview(authorsView)
         stackView.addSeparatorView()
         stackView.addArrangedSubview(publishersView)
+        stackView.addSeparatorView(height: 8)
+        stackView.addArrangedSubview(moreInfoView)
         
         // Trigger UI Updates
         presenter.didLoad()
@@ -106,5 +110,9 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
     
     func updateWishListButton(title: String) {
         addToWishListButton.setTitle(title, for: .normal)
+    }
+    
+    func updateMoreInfo(displayItem: BookDetailMoreInfoDisplayItem) {
+        moreInfoView.configure(displayItem: displayItem)
     }
 }

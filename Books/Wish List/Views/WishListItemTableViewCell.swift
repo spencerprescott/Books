@@ -51,6 +51,10 @@ final class WishListItemTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension WishListItemTableViewCell: ConfigurableView {
+    typealias DisplayItemType = WishListDisplayItem
     
     func configure(displayItem: WishListDisplayItem) {
         titleLabel.text = displayItem.title

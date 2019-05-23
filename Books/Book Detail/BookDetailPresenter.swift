@@ -31,6 +31,7 @@ final class BookDetailPresenter: BookDetailPresenting {
         updateAuthors()
         updatePublishers()
         updateAddToWishListButton()
+        updateMoreInfo()
     }
     
     func didTapWishListButton() {
@@ -90,5 +91,18 @@ final class BookDetailPresenter: BookDetailPresenting {
     private func updateAddToWishListButton() {
         let title = isBookOnWishList ? "Remove From Wish List" : "Add To Wish List"
         view?.updateWishListButton(title: title)
+    }
+    
+    private func updateMoreInfo() {
+        let publishYear: String = {
+            guard let year = book.firstPublishYear else { return "Unknown" }
+            return "\(year)"
+        }()
+        let editionCount: String = {
+            guard let count = book.editionCount else { return "Unknown" }
+            return "\(count)"
+        }()
+        let displayItem = BookDetailMoreInfoDisplayItem(publishYear: publishYear, editionCount: editionCount)
+        view?.updateMoreInfo(displayItem: displayItem)
     }
 }

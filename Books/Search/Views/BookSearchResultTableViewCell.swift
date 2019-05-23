@@ -49,7 +49,11 @@ final class BookSearchResultTableViewCell: UITableViewCell {
         coverImageView.image = nil
         titleLabel.text = nil
     }
+}
 
+extension BookSearchResultTableViewCell: ConfigurableView {
+    typealias DisplayItemType = BookSearchDisplayItem
+    
     func configure(displayItem: BookSearchDisplayItem) {
         titleLabel.text = displayItem.title
         coverImageView.setImageUrl(displayItem.imageUrl)

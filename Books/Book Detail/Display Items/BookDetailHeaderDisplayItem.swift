@@ -9,7 +9,7 @@
 import Foundation
 
 /// Data to be displayed in detail header view
-struct BookDetailHeaderDisplayItem {
+struct BookDetailHeaderDisplayItem: DisplayItem {
     let imageUrl: URL?
     let title: String
 }

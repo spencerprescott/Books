@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct WishListDisplayItem {
+struct WishListDisplayItem: DisplayItem {
     let title: String?
     let imageUrl: URL?
     let dateAdded: String?

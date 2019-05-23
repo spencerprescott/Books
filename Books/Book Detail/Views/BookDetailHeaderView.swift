@@ -50,12 +50,15 @@ final class BookDetailHeaderView: UIView {
             make.bottom.equalToSuperview().inset(20)
             make.leading.trailing.equalToSuperview().inset(30)
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension BookDetailHeaderView: ConfigurableView {
+    typealias DisplayItemType = BookDetailHeaderDisplayItem
     
     func configure(displayItem: BookDetailHeaderDisplayItem) {
         titleLabel.text = displayItem.title

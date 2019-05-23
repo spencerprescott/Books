@@ -11,7 +11,7 @@ import UIKit
 final class BookDetailTitleDescriptionView: UIView {
     private lazy var titleLabel: UILabel = {
         let l = UILabel(frame: .zero)
-        l.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        l.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         return l
     }()
  
@@ -42,6 +42,10 @@ final class BookDetailTitleDescriptionView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension BookDetailTitleDescriptionView: ConfigurableView {
+    typealias DisplayItemType = BookDetailTitleDescriptionDisplayItem
     
     func configure(displayItem: BookDetailTitleDescriptionDisplayItem) {
         titleLabel.text = displayItem.title

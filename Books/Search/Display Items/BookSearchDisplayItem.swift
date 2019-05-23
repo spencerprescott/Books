@@ -9,7 +9,7 @@
 import Foundation
 
 /// Representation of what is displayed to user on the books search results page
-struct BookSearchDisplayItem {
+struct BookSearchDisplayItem: DisplayItem {
     let imageUrl: URL?
     let title: String
 }

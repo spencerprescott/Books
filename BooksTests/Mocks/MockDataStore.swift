@@ -20,7 +20,7 @@ final class MockDataStore: DataStoring {
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { (description, error) in
             // Check if the data store is in memory
-            precondition( description.type == NSInMemoryStoreType )
+            precondition(description.type == NSInMemoryStoreType)
             
             // Check if creating container wrong
             if let error = error {

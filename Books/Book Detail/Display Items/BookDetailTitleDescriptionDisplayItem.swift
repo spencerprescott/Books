@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BookDetailTitleDescriptionDisplayItem {
+struct BookDetailTitleDescriptionDisplayItem: DisplayItem {
     let title: String
     let description: String
 }
