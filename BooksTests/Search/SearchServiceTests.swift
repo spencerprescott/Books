@@ -10,23 +10,6 @@ import XCTest
 @testable import Books
 
 class SearchServiceTests: XCTestCase {
-    private class MockNetworkRequest: NetworkRequest {
-        func executeRequest() {}
-        func cancelRequest() {}
-    }
-    private class MockNetworkService: NetworkServicing {
-        private let data: Data
-        
-        init(data: Data) {
-            self.data = data
-        }
-        
-        func buildRequest(url: URL, resultHandler: @escaping (Result<Data, NetworkError>) -> Void) -> NetworkRequest {
-            resultHandler(.success(result: data))
-            return MockNetworkRequest()
-        }
-    }
-    
     private let service = SearchService(networkService: MockNetworkService(data: BookSearchContainer.mockData))
     
     func testResponseDataIsParsedToBookSearchContainer() {

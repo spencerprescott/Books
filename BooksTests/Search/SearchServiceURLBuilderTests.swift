@@ -15,8 +15,8 @@ class SearchServiceURLBuilderTests: XCTestCase {
             return XCTFail("Expected url to be generated. Got nil url instead")
         }
         
-        XCTAssertFalse(url.absoluteString.contains("page="), "Expected page to not be set")
-        XCTAssertTrue(url.absoluteString.contains("?q=hello+world"), "Expected url to have q=hello+world")
+        XCTAssertTrue(url.absoluteString.contains("page=1"), "Expected page to be set")
+        XCTAssertTrue(url.absoluteString.contains("q=hello+world"), "Expected url to have q=hello+world")
     }
     
     func testValidUrlIsBuiltWithMultipleSpaces() {
@@ -24,8 +24,8 @@ class SearchServiceURLBuilderTests: XCTestCase {
             return XCTFail("Expected url to be generated. Got nil url instead")
         }
         
-        XCTAssertFalse(url.absoluteString.contains("page="), "Expected page to not be set")
-        XCTAssertTrue(url.absoluteString.contains("?q=hello+world"), "Expected url to have q=hello+world")
+        XCTAssertTrue(url.absoluteString.contains("page=1"), "Expected page to be set")
+        XCTAssertTrue(url.absoluteString.contains("q=hello+world"), "Expected url to have q=hello+world")
     }
     
     func testValidUrlIsBuiltWithPage() {
@@ -34,7 +34,7 @@ class SearchServiceURLBuilderTests: XCTestCase {
         }
         
         XCTAssertFalse(url.absoluteString.contains("q="), "Expected url to not have query set")
-        XCTAssertTrue(url.absoluteString.contains("?page=2"), "Expected url to have page set to page=2")
+        XCTAssertTrue(url.absoluteString.contains("page=2"), "Expected url to have page set to page=2")
     }
     
     func testValidUrlIsBuiltWithPageAndQuery() {

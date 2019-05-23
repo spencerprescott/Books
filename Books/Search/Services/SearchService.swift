@@ -62,17 +62,24 @@ final class SearchService: SearchServicing {
         // Cancel in flight request. We only allow one search request at a time
         currentRequest?.cancelRequest()
         
-        guard let query = query,
-            !query.isEmpty
-            else { return resultHandler(.success(result: SearchResult(page: page, nextPage: page + 1, container: .empty))) }
+        guard let query = query, !query.isEmpty else {
+            let result = SearchResult(page: page, nextPage: page + 1, container: .empty)
+            return notifyOnMain {
+                resultHandler(.success(result: result))
+            }
+        }
         
         let url = URLBuilder()
             .page(page)
             .query(query)
             .build()
         
-        guard let searchUrl = url
-            else { return resultHandler(.failure(error: SearchError(errorDescription: "Invalid Search Query"))) }
+        guard let searchUrl = url else {
+            let error = SearchError(errorDescription: "Invalid Search Query")
+            return notifyOnMain {
+                resultHandler(.failure(error: error))
+            }
+        }
         
         // Build search request
         let request = networkService.buildRequest(url: searchUrl) { [weak self] result in
@@ -82,12 +89,12 @@ final class SearchService: SearchServicing {
             case .success(let data):
                 do {
                     let searchResult = try self.parseSearchResult(from: data, page: page)
-                    resultHandler(.success(result: searchResult))
+                    self.notifyOnMain { resultHandler(.success(result: searchResult)) }
                 } catch {
-                    resultHandler(.failure(error: error))
+                    self.notifyOnMain { resultHandler(.failure(error: error)) }
                 }
             case .failure(let error):
-                resultHandler(.failure(error: error))
+                self.notifyOnMain { resultHandler(.failure(error: error)) }
             }
         }
         request.executeRequest()
@@ -99,5 +106,12 @@ final class SearchService: SearchServicing {
     private func parseSearchResult(from data: Data, page: Int) throws -> SearchResult {
         let container = try JSONDecoder().decode(BookSearchContainer.self, from: data)
         return SearchResult(page: page, nextPage: page + 1, container: container)
+    }
+    
+    /// Convenience method for executing closure on main thread
+    private func notifyOnMain(closure: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            closure()
+        }
     }
 }

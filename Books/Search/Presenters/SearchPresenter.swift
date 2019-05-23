@@ -45,7 +45,7 @@ final class SearchPresenter: SearchPresentable {
     }
     
     func loadNextPage() {
-        executeSearchRequest(on: page + 1)
+        executeSearchRequest(on: page)
     }
     
     func didSelectBook(at index: Int) {
@@ -59,14 +59,11 @@ final class SearchPresenter: SearchPresentable {
     private func executeSearchRequest(on page: Int) {
         searchService.search(query: query, page: page) { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                switch result {
-                case .success(let searchResult):
-                    self.handleSearchResult(searchResult)
-                case .failure(let error):
-                    self.handleError(error)
-                }
+            switch result {
+            case .success(let searchResult):
+                self.handleSearchResult(searchResult)
+            case .failure(let error):
+                self.handleError(error)
             }
         }
     }

@@ -63,6 +63,10 @@
 		ABDD77582296750800E7A44C /* WishListDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD77572296750800E7A44C /* WishListDisplayItem.swift */; };
 		ABDD775A229675EF00E7A44C /* BookCoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD7759229675EF00E7A44C /* BookCoverImageView.swift */; };
 		ABDD775C22967A0B00E7A44C /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD775B22967A0B00E7A44C /* DateFormat.swift */; };
+		ABDD775E22967DA800E7A44C /* SearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD775D22967DA800E7A44C /* SearchPresenterTests.swift */; };
+		ABDD776222967E1400E7A44C /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD776122967E1400E7A44C /* MockNetworkService.swift */; };
+		ABDD776422967ED300E7A44C /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD776322967ED300E7A44C /* MockDataStore.swift */; };
+		ABDD77662296823800E7A44C /* MockSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD77652296823800E7A44C /* MockSearchResult.swift */; };
 		F88EA6A4AA526A22E80745C0 /* Pods_BooksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620B25CD3CC0FBAC5CB4F1D4 /* Pods_BooksTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +144,10 @@
 		ABDD77572296750800E7A44C /* WishListDisplayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListDisplayItem.swift; sourceTree = "<group>"; };
 		ABDD7759229675EF00E7A44C /* BookCoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCoverImageView.swift; sourceTree = "<group>"; };
 		ABDD775B22967A0B00E7A44C /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		ABDD775D22967DA800E7A44C /* SearchPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenterTests.swift; sourceTree = "<group>"; };
+		ABDD776122967E1400E7A44C /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
+		ABDD776322967ED300E7A44C /* MockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
+		ABDD77652296823800E7A44C /* MockSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchResult.swift; sourceTree = "<group>"; };
 		BECF0889A516A3BBD6E3947C /* Pods-Books.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Books.release.xcconfig"; path = "Target Support Files/Pods-Books/Pods-Books.release.xcconfig"; sourceTree = "<group>"; };
 		E3D3A7F48C0D2D8B7CD583D2 /* Pods-BooksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BooksTests.debug.xcconfig"; path = "Target Support Files/Pods-BooksTests/Pods-BooksTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -297,6 +305,7 @@
 			children = (
 				AB1AD17B2293E0DB00409228 /* SearchServiceURLBuilderTests.swift */,
 				AB1AD1822293EA8100409228 /* SearchServiceTests.swift */,
+				ABDD775D22967DA800E7A44C /* SearchPresenterTests.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -314,6 +323,9 @@
 			isa = PBXGroup;
 			children = (
 				AB1AD1852293EAFC00409228 /* MockBookSearchContainer.swift */,
+				ABDD776122967E1400E7A44C /* MockNetworkService.swift */,
+				ABDD776322967ED300E7A44C /* MockDataStore.swift */,
+				ABDD77652296823800E7A44C /* MockSearchResult.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -705,8 +717,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABDD77662296823800E7A44C /* MockSearchResult.swift in Sources */,
+				ABDD776222967E1400E7A44C /* MockNetworkService.swift in Sources */,
 				AB1AD1832293EA8100409228 /* SearchServiceTests.swift in Sources */,
+				ABDD775E22967DA800E7A44C /* SearchPresenterTests.swift in Sources */,
 				AB1AD17C2293E0DB00409228 /* SearchServiceURLBuilderTests.swift in Sources */,
+				ABDD776422967ED300E7A44C /* MockDataStore.swift in Sources */,
 				AB1AD1862293EAFC00409228 /* MockBookSearchContainer.swift in Sources */,
 				AB1AD1502293D40600409228 /* BooksTests.swift in Sources */,
 			);
