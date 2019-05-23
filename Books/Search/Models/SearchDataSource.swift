@@ -11,11 +11,6 @@ import UIKit
 final class SearchDataSource: NSObject {
     static let empty = SearchDataSource(books: [])
     
-    /// Returns if the data sources has any items to show
-    var isEmpty: Bool {
-        return items.isEmpty
-    }
-    
     private let items: [BookSearchDisplayItem]
     
     init(books: [Book]) {

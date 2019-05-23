@@ -39,7 +39,7 @@ final class SearchViewController: ViewController, SearchViewable {
     private var dataSource: SearchDataSource = .empty {
         didSet {
             tableView.dataSource = dataSource
-            loadingView.isHidden = dataSource.isEmpty
+            loadingView.isHidden = true
             tableView.reloadData()
             // Renable selection after new content is loaded in
             tableView.allowsSelection = true
@@ -88,7 +88,7 @@ final class SearchViewController: ViewController, SearchViewable {
                                                        verticalFittingPriority: .fittingSizeLevel)
         loadingView.frame = CGRect(origin: .zero, size: size)
         tableView.tableFooterView = loadingView
-        loadingView.isHidden = dataSource.isEmpty
+        loadingView.isHidden = true
     }
 
     // MARK:- SearchViewable
@@ -111,7 +111,10 @@ extension SearchViewController: UIScrollViewDelegate {
         
         // Check if we've reached the bottom of the content
         if bottomEdge >= ceil(scrollView.contentSize.height) {
+            loadingView.isHidden = false
             presenter.loadNextPage()
+        } else {
+            loadingView.isHidden = true
         }
     }
     

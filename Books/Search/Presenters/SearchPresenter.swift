@@ -90,7 +90,6 @@ final class SearchPresenter: SearchPresentable {
         // Add new books to data source
         self.books.append(contentsOf: result.container.books)
         
-    
         let dataSource = SearchDataSource(books: books)
         // Notify view of new display items to show
         view?.showSearchResults(dataSource: dataSource)
