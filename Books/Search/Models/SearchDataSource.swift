@@ -19,7 +19,7 @@ final class SearchDataSource: NSObject {
         func displayItem(from book: Book) -> BookSearchDisplayItem {
             let imageUrl: URL? = {
                 if let id = book.coverId {
-                    return URL(string: "http://covers.openlibrary.org/b/ID/\(id)-S.jpg")
+                    return URL(string: "\(Constants.Api.assetUrl)/\(id)-S.jpg")
                 }
                 return nil
             }()

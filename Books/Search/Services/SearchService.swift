@@ -18,7 +18,6 @@ struct SearchError: LocalizedError {
 
 final class SearchService: SearchServicing {
     final class URLBuilder {
-        private let baseUrl = "http://openlibrary.org/search.json"
         private var query: String?
         private var page: Int = 1
         
@@ -37,7 +36,7 @@ final class SearchService: SearchServicing {
         }
         
         func build() -> URL? {
-            var components = URLComponents(string: baseUrl)
+            var components = URLComponents(string: Constants.Api.searchUrl)
             var queryItems: [URLQueryItem] = []
             queryItems.append(.init(name: "page", value: "\(page)"))
        
@@ -58,13 +57,15 @@ final class SearchService: SearchServicing {
         self.networkService = networkService
     }
     
+    /// Query books API for books related to `query` on the paramterized `page`. Will dispatch `resultHandler` to main thread
     func search(query: String?, page: Int, resultHandler: @escaping (Result<SearchResult, Error>) -> Void) {
         // Cancel in flight request. We only allow one search request at a time
         currentRequest?.cancelRequest()
         
+        // If query is empty, skip network call and just respond with empty data
         guard let query = query, !query.isEmpty else {
             let result = SearchResult(page: page, nextPage: page + 1, container: .empty)
-            return notifyOnMain {
+            return DispatchQueue.main.async {
                 resultHandler(.success(result: result))
             }
         }
@@ -76,7 +77,7 @@ final class SearchService: SearchServicing {
         
         guard let searchUrl = url else {
             let error = SearchError(errorDescription: "Invalid Search Query")
-            return notifyOnMain {
+            return DispatchQueue.main.async {
                 resultHandler(.failure(error: error))
             }
         }
@@ -89,14 +90,15 @@ final class SearchService: SearchServicing {
             case .success(let data):
                 do {
                     let searchResult = try self.parseSearchResult(from: data, page: page)
-                    self.notifyOnMain { resultHandler(.success(result: searchResult)) }
+                    DispatchQueue.main.async { resultHandler(.success(result: searchResult)) }
                 } catch {
-                    self.notifyOnMain { resultHandler(.failure(error: error)) }
+                    DispatchQueue.main.async { resultHandler(.failure(error: error)) }
                 }
             case .failure(let error):
-                self.notifyOnMain { resultHandler(.failure(error: error)) }
+                DispatchQueue.main.async { resultHandler(.failure(error: error)) }
             }
         }
+        // Fire off network request
         request.executeRequest()
         
         // Save inflight request
@@ -106,12 +108,5 @@ final class SearchService: SearchServicing {
     private func parseSearchResult(from data: Data, page: Int) throws -> SearchResult {
         let container = try JSONDecoder().decode(BookSearchContainer.self, from: data)
         return SearchResult(page: page, nextPage: page + 1, container: container)
-    }
-    
-    /// Convenience method for executing closure on main thread
-    private func notifyOnMain(closure: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            closure()
-        }
     }
 }

@@ -41,6 +41,9 @@ final class SearchPresenter: SearchPresentable {
         page = 1
         self.query = query
         
+        // Remove old results from view while loading new results
+        view?.showSearchResults(dataSource: .empty)
+        
         executeSearchRequest(on: page)
     }
     

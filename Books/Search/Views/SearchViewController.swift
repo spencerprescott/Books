@@ -107,7 +107,7 @@ extension SearchViewController: UITableViewDelegate {
 
 extension SearchViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let bottomEdge = ceil(scrollView.contentOffset.y + scrollView.frame.size.height)
+        let bottomEdge = ceil(scrollView.contentOffset.y + scrollView.bounds.size.height + loadingView.bounds.size.height)
         
         // Check if we've reached the bottom of the content
         if bottomEdge >= ceil(scrollView.contentSize.height) {
@@ -134,5 +134,7 @@ extension SearchViewController: UISearchBarDelegate {
         // Disable selection while content for new search loads
         tableView.allowsSelection = false
         presenter.search(query: searchController.searchBar.text)
+        // Show loading spinner while results are found
+        loadingView.isHidden = false
     }
 }

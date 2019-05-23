@@ -19,7 +19,7 @@ final class WishListDataSource: NSObject {
     private func displayItem(from item: WishListItem) -> WishListDisplayItem {
         let imageUrl: URL? = {
             if let id = item.book.coverId {
-                return URL(string: "http://covers.openlibrary.org/b/ID/\(id)-S.jpg")
+                return URL(string: "\(Constants.Api.assetUrl)/\(id)-S.jpg")
             }
             return nil
         }()

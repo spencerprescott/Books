@@ -26,15 +26,12 @@ final class WishListPresenter: WishListPresenting {
     }
     
     func didLoad() {
-        // Load items from core data
-        let result = storage.loadItems()
-
-        // Update view with result
-        switch result {
-        case .success:
+        do {
+            // Load items from core data
+            try storage.loadItems()
             let dataSource = WishListDataSource(storage: storage)
             view?.didLoadItems(dataSource: dataSource)
-        case .failure(let error):
+        } catch {
             view?.showError(message: error.localizedDescription)
         }
     }

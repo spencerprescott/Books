@@ -52,7 +52,7 @@ final class BookDetailPresenter: BookDetailPresenting {
     private func updateHeader() {
         let imageUrl: URL? = {
             if let id = book.coverId {
-                return URL(string: "http://covers.openlibrary.org/b/ID/\(id)-M.jpg")
+                return URL(string: "\(Constants.Api.assetUrl)/\(id)-M.jpg")
             } else {
                 return nil
             }

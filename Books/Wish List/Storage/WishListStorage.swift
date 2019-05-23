@@ -13,7 +13,7 @@ protocol WishListStoring: class {
     var delegate: WishListStorageDelegate? { get set }
     var numberOfItemsInWishList: Int { get }
     func item(at indexPath: IndexPath) -> WishListItem
-    func loadItems() -> Result<Void, Error>
+    func loadItems() throws
 }
 
 protocol WishListStorageDelegate: class {
@@ -42,13 +42,8 @@ final class WishListStorage: NSObject, WishListStoring {
         self.frc.delegate = self
     }
     
-    func loadItems() -> Result<Void, Error> {
-        do {
-            try frc.performFetch()
-            return .success(result: ())
-        } catch {
-            return .failure(error: error)
-        }
+    func loadItems() throws {
+        try frc.performFetch()
     }
     
     func item(at indexPath: IndexPath) -> WishListItem {
