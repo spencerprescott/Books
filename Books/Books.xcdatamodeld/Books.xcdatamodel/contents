@@ -5,11 +5,11 @@
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookModel" inverseName="authors" inverseEntity="BookModel" syncable="YES"/>
     </entity>
     <entity name="BookModel" representedClassName="BookModel" syncable="YES" codeGenerationType="class">
-        <attribute name="coverId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" spotlightIndexingEnabled="YES" syncable="YES"/>
+        <attribute name="coverId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="editionCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="firstPublishYear" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" attributeType="String" spotlightIndexingEnabled="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="authors" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AuthorModel" inverseName="book" inverseEntity="AuthorModel" syncable="YES"/>
         <relationship name="publishers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PublisherModel" inverseName="book" inverseEntity="PublisherModel" syncable="YES"/>

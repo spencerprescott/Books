@@ -26,9 +26,9 @@ final class BookDetailStorage: BookDetailStoring {
     }
     
     func isBookOnWishList(_ book: Book) -> Bool {
-        guard let coverId = book.coverId else { return false }
+        guard let key = book.key else { return false }
         let context = dataStore.persistentContainer.viewContext
-        let request = fetchRequestForBookModel(coverId: coverId)
+        let request = fetchRequestForBookModel(key: key)
         do {
             let results = try context.fetch(request)
             return !results.isEmpty
@@ -46,12 +46,12 @@ final class BookDetailStorage: BookDetailStoring {
     }
     
     private func toggleWishListStatus(of book: Book, context: NSManagedObjectContext) -> Result<Void, Error> {
-        guard let coverId = book.coverId
-            else { return .failure(error: BookDetailStorageError(errorDescription: "Book does not have a cover id")) }
+        guard let key = book.key
+            else { return .failure(error: BookDetailStorageError(errorDescription: "Book does not have a key. One is required to add it to the wishlist.")) }
         
         do {
             // Build request to find parameterized book
-            let request = fetchRequestForBookModel(coverId: coverId)
+            let request = fetchRequestForBookModel(key: key)
             let results = try context.fetch(request)
             
             // If book exists, we remove it since this is toggling if its on the wishlist
@@ -70,9 +70,9 @@ final class BookDetailStorage: BookDetailStoring {
         }
     }
     
-    private func fetchRequestForBookModel(coverId: Int) -> NSFetchRequest<NSFetchRequestResult> {
+    private func fetchRequestForBookModel(key: String) -> NSFetchRequest<NSFetchRequestResult> {
         let request: NSFetchRequest<NSFetchRequestResult> = BookModel.fetchRequest()
-        request.predicate = NSPredicate(format: "coverId = %@", NSNumber(integerLiteral: coverId))
+        request.predicate = NSPredicate(format: "key = %@", key)
         request.fetchLimit = 1
         return request
     }

@@ -33,8 +33,7 @@ final class WishListStorage: NSObject, WishListStoring {
     
     init(dataStore: DataStoring) {
         let request: NSFetchRequest<BookModel> = BookModel.fetchRequest()
-        // TODO: Sort by added at date
-        request.sortDescriptors = [NSSortDescriptor(key: "dateAdded", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "dateAdded", ascending: false)]
         self.frc = NSFetchedResultsController(fetchRequest: request,
                                               managedObjectContext: dataStore.viewContext,
                                               sectionNameKeyPath: nil,

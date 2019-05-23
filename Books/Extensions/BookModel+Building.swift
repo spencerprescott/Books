@@ -11,9 +11,8 @@ import CoreData
 
 extension BookModel {
     convenience init?(context: NSManagedObjectContext, book: Book) {
-        // Cover id is required
-        guard let coverId = book.coverId else { return nil }
-        
+        // Key is required to save the book
+        guard let key = book.key else { return nil }
         let publishers: [PublisherModel] = book.publishers.compactMap { name in
             let publisher = PublisherModel(context: context)
             publisher.name = name
@@ -27,10 +26,10 @@ extension BookModel {
         self.init(context: context)
         self.publishers = NSSet(array: publishers)
         self.authors = NSSet(array: authors)
-        self.coverId = Int64(coverId)
+        self.coverId = Int64(book.coverId ?? 0)
         self.editionCount = Int64(book.editionCount ?? 0)
         self.firstPublishYear = Int64(book.firstPublishYear ?? 0)
-        self.key = book.key
+        self.key = key
         self.title = book.title
         // Use current date
         self.dateAdded = Date()
