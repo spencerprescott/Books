@@ -27,6 +27,8 @@ final class BookDetailHeaderView: UIView {
     
     init() {
         super.init(frame: .zero)
+        backgroundColor = .white
+        
         addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

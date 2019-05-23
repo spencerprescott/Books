@@ -22,7 +22,7 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         v.axis = .vertical
         return v
     }()
-    private lazy var scrollView = UIScrollView(frame: .zero)
+    private lazy var scrollView = UIScrollView(backgroundColor: .groupTableViewBackground)
     private lazy var headerView = BookDetailHeaderView()
     private lazy var authorsView = BookDetailTitleDescriptionView()
     private lazy var publishersView = BookDetailTitleDescriptionView()
@@ -81,7 +81,7 @@ final class BookDetailViewController: ViewController, BookDetailViewable {
         stackView.addArrangedSubview(authorsView)
         stackView.addSeparatorView()
         stackView.addArrangedSubview(publishersView)
-        stackView.addSeparatorView(height: 8)
+        stackView.addSeparatorView()
         stackView.addArrangedSubview(moreInfoView)
         
         // Trigger UI Updates

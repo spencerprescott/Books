@@ -45,6 +45,8 @@ final class BookDetailMoreInfoView: UIView {
     
     init() {
         super.init(frame: .zero)
+        backgroundColor = .white
+
         let publishYearStackView = buildSectionStackView(titleLabel: publishYearTitleLabel, valueLabel: publishYearValueLabel)
         let editionCountStackView = buildSectionStackView(titleLabel: editionCountTitleLabel, valueLabel: editionCountValueLabel)
 

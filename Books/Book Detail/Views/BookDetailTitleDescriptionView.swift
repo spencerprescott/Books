@@ -25,6 +25,8 @@ final class BookDetailTitleDescriptionView: UIView {
     
     init() {
         super.init(frame: .zero)
+        backgroundColor = .white
+
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)

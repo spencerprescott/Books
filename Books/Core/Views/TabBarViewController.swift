@@ -15,7 +15,7 @@ final class TabBarController: UITabBarController {
         self.flows = flows
         super.init(nibName: nil, bundle: nil)
         setViewControllers(flows.map { $0.viewController }, animated: true)
-        tabBar.tintColor = .primaryBlue
+        tabBar.tintColor = .black
     }
     
     required init?(coder aDecoder: NSCoder) {

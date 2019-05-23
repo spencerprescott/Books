@@ -21,6 +21,7 @@ final class SearchViewController: ViewController, SearchViewable {
         controller.obscuresBackgroundDuringPresentation = false
         controller.searchBar.placeholder = "Search Books"
         controller.searchBar.delegate = self
+        controller.searchBar.tintColor = .black
         return controller
     }()
 

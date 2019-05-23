@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIStackView {
-    func addSeparatorView(backgroundColor: UIColor = .groupTableViewBackground, height: CGFloat = 1) {
+    func addSeparatorView(backgroundColor: UIColor = .groupTableViewBackground, height: CGFloat = 8) {
         let view = UIView(backgroundColor: backgroundColor)
         view.snp.makeConstraints { make in
             make.height.equalTo(height)
