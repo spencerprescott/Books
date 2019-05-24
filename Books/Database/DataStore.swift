@@ -44,8 +44,6 @@ extension DataStoring {
                     saveCompletion?(.failure(error: error))
                 }
             }
-            
-          
         }
     }
     

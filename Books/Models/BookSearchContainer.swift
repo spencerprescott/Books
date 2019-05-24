@@ -1,18 +1,12 @@
 //
-//  SearchResult.swift
+//  BookSearchContainer.swift
 //  Books
 //
-//  Created by Spencer Prescott on 5/21/19.
+//  Created by Spencer Prescott on 5/24/19.
 //  Copyright © 2019 Spencer Prescott. All rights reserved.
 //
 
 import Foundation
-
-struct SearchResult {
-    let page: Int
-    let nextPage: Int
-    let container: BookSearchContainer
-}
 
 struct BookSearchContainer {
     let start: Int
@@ -20,12 +14,6 @@ struct BookSearchContainer {
     let books: [Book]
     
     static let empty: BookSearchContainer = BookSearchContainer(start: 0, numFound: 0, books: [])
-
-    init(start: Int, numFound: Int, books: [Book]) {
-        self.start = start
-        self.numFound = numFound
-        self.books = books
-    }
 }
 
 extension BookSearchContainer: Decodable {
