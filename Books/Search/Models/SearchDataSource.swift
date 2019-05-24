@@ -49,8 +49,7 @@ extension SearchDataSource: UITableViewDataSource {
 extension SearchDataSource: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         let urls = indexPaths
-            .map { items[$0.row] }
-            .compactMap { $0.imageUrl }
+            .compactMap { items[$0.row].imageUrl }
         
         // Prefetch images before they come on screen
         ImagePrefetcher(urls: urls).start()
