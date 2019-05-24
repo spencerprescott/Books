@@ -39,6 +39,7 @@ final class SearchViewController: ViewController, SearchViewable {
     private var dataSource: SearchDataSource = .empty {
         didSet {
             tableView.dataSource = dataSource
+            tableView.prefetchDataSource = dataSource
             loadingView.isHidden = true
             tableView.reloadData()
             // Renable selection after new content is loaded in

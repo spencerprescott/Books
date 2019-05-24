@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SearchDataSource: NSObject {
     static let empty = SearchDataSource(books: [])
@@ -42,5 +43,16 @@ extension SearchDataSource: UITableViewDataSource {
         let cell = tableView.dequeue(BookSearchResultTableViewCell.self, for: indexPath)
         cell.configure(displayItem: item)
         return cell
+    }
+}
+
+extension SearchDataSource: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let urls = indexPaths
+            .map { items[$0.row] }
+            .compactMap { $0.imageUrl }
+        
+        // Prefetch images before they come on screen
+        ImagePrefetcher(urls: urls).start()
     }
 }
